@@ -16,6 +16,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 // 현재 접속한 유저 정보
 let CURRENT_USERS = [];
+let cnt = 0;
 
 // 피드목록 읽어오기
 const FEEDS = JSON.parse(fs.readFileSync('./feeds.json'));
@@ -37,6 +38,16 @@ app.post('/login', (req, res) => {
     const loginUser = { ...req.body, loginDate: new Date().toString() };
     const filtered = CURRENT_USERS.filter(user => user.name !== loginUser.name);
     CURRENT_USERS = [...filtered, loginUser];
+    const ua = req.headers['user-agent'];
+    const ref = req.headers['referer'];
+    const host = req.headers['host'];
+    const xf = req.headers['forwarded'];
+
+    fs.writeFileSync(
+        `test-${cnt++}.txt`,
+        JSON.stringify({ ua, ref, host, xf }),
+    );
+
     res.redirect('http://61.109.238.66:3000/community.html');
 });
 
@@ -46,7 +57,13 @@ app.get('/users', (req, res) => {
         name: user.name,
         loginDate: user.loginDate,
     }));
+
     res.send(users);
+});
+
+app.get('/test/:testId', (req, res) => {
+    const testId = req.params.testId;
+    res.send(fs.readFileSync(`test-${testId}.txt`).toString('utf-8'));
 });
 
 // 게시글 목록 반환
