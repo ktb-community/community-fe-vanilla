@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="community.css">
+    <title>KakaoTech Cloud Native in JEJU 2기</title>
+    <script type="module" defer src="./feed.js"></script>
+</head>
+
+<body class="body">
+    <nav class="nav">
+        <p>Home</p>
+        <div class="toggle-container" onclick="toggleButton(this)">
+            <div class="toggle-circle"></div>
+        </div>
+    </nav>
+
+    <section class="feed-section">
+        <div id="feeds">
+            <p>아래로 스크롤해서 새로운 소식을 확인하세요.</p>
+        </div>
+
+        <div id="detail">
+            <article class="article">
+                <div>
+                    <p class="article-title">아직 선택된 피드가 없어요..</p>
+                    <p class="article-writer"></p>
+                </div>
+                <p class="article-content"></p>
+            </article>
+        </div>
+    </section>
+    <script>
+        const bubbles = [];
+        const colors = ['#D4C4A4', '#C4D4A4', '#A4D4E6'];
+        let id;
+
+        const toggleContainer = document.querySelector(".toggle-container");
+        toggleButton(toggleContainer);
+
+        function toggleButton(element) {
+            element.classList.toggle("on"); // on 클래스 추가/제거
+            if (element.classList.contains("on")) createBubbles();
+            else removeBubbles();
+        }
+
+        function removeBubbles() {
+            const bubbleElements = document.body.querySelectorAll('.bubble');
+
+            for (const bubble of bubbleElements) {
+                document.body.removeChild(bubble);
+            }
+
+            clearInterval(id);
+        }
+
+        function createBubbles() {
+            for (let i = 0; i < 50; i++) {
+                const bubble = document.createElement('div');
+                const size = Math.random() * 50 + 20;
+                bubble.className = 'bubble';
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${Math.random() * window.innerWidth}px`;
+                bubble.style.top = `${Math.random() * window.innerHeight}px`;
+                bubble.style.backgroundColor = colors[i % colors.length];
+                document.body.appendChild(bubble);
+
+                bubble.speedX = Math.random() * 2 - 1; // -1에서 1 사이의 랜덤 속도
+                bubble.speedY = Math.random() * 2 - 1; // -1에서 1 사이의 랜덤 속도
+                bubbles.push(bubble);
+            }
+
+            id = setInterval(() => {
+                bubbles.forEach(bubble => {
+                    const rect = bubble.getBoundingClientRect();
+
+                    // 위치 업데이트
+                    bubble.style.left = `${rect.left + bubble.speedX}px`;
+                    bubble.style.top = `${rect.top + bubble.speedY}px`;
+
+                    // 화면 경계 체크 및 반사
+                    if (
+                        rect.left + bubble.speedX < 0 ||
+                        rect.right + bubble.speedX > window.innerWidth
+                    ) {
+                        bubble.speedX *= -1; // x축 반전
+                    }
+
+                    if (
+                        rect.top + bubble.speedY < 0 ||
+                        rect.bottom + bubble.speedY > window.innerHeight
+                    ) {
+                        bubble.speedY *= -1; // y축 반전
+                    }
+                });
+            }, 20);
+        }
+    </script>
+</body>
+
+</html>
