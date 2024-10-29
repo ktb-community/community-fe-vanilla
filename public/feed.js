@@ -1,6 +1,6 @@
 async function getNewsFeeds(e) {
     e.preventDefault();
-    const res = await fetch('http://192.168.0.12:3000/feeds');
+    const res = await fetch('http://61.109.238.66:3000/feeds');
     const feedsElement = document.querySelector('#feeds');
 
     if (res.ok) {
@@ -54,7 +54,7 @@ async function getNewsFeeds(e) {
             feedElement.addEventListener('click', async e => {
                 e.preventDefault();
                 const res = await fetch(
-                    `http://192.168.0.12:3000/feed/${feed.id}`,
+                    `http://61.109.238.66:3000/feed/${feed.id}`,
                 );
 
                 if (res.ok) {

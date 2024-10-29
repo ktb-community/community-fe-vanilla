@@ -1,5 +1,5 @@
 async function updateCurrentUser(e) {
-    const res = await fetch('http://192.168.0.12:3000/users');
+    const res = await fetch('http://61.109.238.66:3000/users');
 
     if (res.ok) {
         const users = await res.json();

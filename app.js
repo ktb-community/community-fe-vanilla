@@ -37,7 +37,7 @@ app.post('/login', (req, res) => {
     const loginUser = { ...req.body, loginDate: new Date().toString() };
     const filtered = CURRENT_USERS.filter(user => user.name !== loginUser.name);
     CURRENT_USERS = [...filtered, loginUser];
-    res.redirect('http://192.168.0.12:3000/community.html');
+    res.redirect('http://61.109.238.66:3000/community.html');
 });
 
 // 현재 접속한 유저 아이디 목록 반환
