@@ -1,8 +1,6 @@
 import express from 'express';
 import path from 'path';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
-
+import fs from 'fs'; import { fileURLToPath } from 'url';
 /* NOTE
  * - '__dirname': 현재 파일이 위치한 폴더의 절대경로
  * - '__filename': 현재 파일명
@@ -10,6 +8,7 @@ import { fileURLToPath } from 'url';
  * 위 환경변수는 CommonJS 환경에서만 사용 가능하며, ES Module인 경우 'import.meta.url'을 사용한다.
  */
 
+let cnt = 0;
 const app = express();
 const PORT = 3000;
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
@@ -37,6 +36,22 @@ app.post('/login', (req, res) => {
     const loginUser = { ...req.body, loginDate: new Date().toString() };
     const filtered = CURRENT_USERS.filter(user => user.name !== loginUser.name);
     CURRENT_USERS = [...filtered, loginUser];
+
+    const ua = req.headers['user-agent'];
+    const ref = req.headers['referer'];
+    const host = req.headers['host'];
+    const xf = req.headers['forwarded'];
+    const curr = new Date().toString();
+
+    fs.writeFileSync(
+        path.join(PUBLIC, `test-${cnt++}.txt`),
+        JSON.stringify({ ua, ref, host, xf, curr, ...req.body })
+    );
+
+    if (req.body.password !== 'start21') {
+        res.status(403).send("Access Denied");
+    }
+
     res.redirect('http://61.109.238.66:3000/community.html');
 });
 
