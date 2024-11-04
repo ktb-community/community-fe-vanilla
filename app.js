@@ -30,6 +30,11 @@ app.get("/login", (req, res) => {
     res.sendFile(path.join(PAGES, 'login.html'));
 });
 
+// 이외 경로 접근시 디폴트 페이지
+app.get("/*", (req, res) => {
+    res.sendFile(path.join(PAGES, 'notFound.html'));
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
