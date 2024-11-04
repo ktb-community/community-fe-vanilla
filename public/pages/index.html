@@ -16,6 +16,10 @@
 
 <body id="index-body">
     <nav id="side-bar">
+        <section>
+            <h3>KakaoTech<br />Cloud Native in JEJU<br />Community</h3>
+        </section>
+
         <section id="user-profile-section">
             <div class="user-avatar-lg"></div>
             <p class="user-introduce">luis.hwang</p>
@@ -23,7 +27,7 @@
 
         <section id="menu-section">
             <button class="side-menu">Home</button>
-            <button class="side-menu">Chat</button>
+            <button class="side-menu">Messages</button>
             <button class="side-menu">Friends</button>
             <button class="side-menu">Settings</button>
         </section>
@@ -36,12 +40,32 @@
     <!-- SCRIPT로 동적으로 생성 -->
     <main id="feed-main">
         <h1 id="feed-title">Feeds</h1>
+        <nav id="feed-menu">
+            <button class="feed-menu-item">Recents</button>
+            <button class="feed-menu-item">Friends</button>
+            <button class="feed-menu-item">Popular</button>
+        </nav>
+
+        <div id="feed-form-container">
+            <div id="feed-form">
+                <div class="user-avatar-sm"></div>
+                <input type="text" placeholder="생각을 공유해보세요." />
+            </div>
+            <div id="feed-form-tool">
+                <div id="tool-group">
+                    <input type="file" accept=".jpg,.png" value="file" />
+                </div>
+                <input type="submit" value="Submit" />
+            </div>
+        </div>
+
+        <hr style="margin: 36px 0;" />
+
+        <div id="feed-container"></div>
     </main>
 
-    <div id="loading" class="loading">...</div>
-
     <nav id="other-contents">
-        <div>asd</div>
+        <div>추가 기능</div>
     </nav>
 </body>
 
