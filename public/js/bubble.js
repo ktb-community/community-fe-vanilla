@@ -1,6 +1,6 @@
 const BUBBLES = [];
 const COLORS = ['violet', 'purple', 'yellow', 'red'];
-const BODY = document.querySelector(".body");
+const BODY = document.querySelector("#body");
 let INTERVAL_ID = null;
 
 initBubbles();
@@ -10,7 +10,7 @@ function initBubbles() {
 
     setInterval(() => {
         _changeBubbleColor();
-    }, Math.random() * 5000 + 1000);
+    }, Math.random() * 5000 + 5000);
 }
 
 function _changeBubbleColor() {
@@ -19,7 +19,7 @@ function _changeBubbleColor() {
     }
 
     for (let i = 0; i < BUBBLES.length; i++) {
-        if (Math.random() < 0.2) {
+        if (Math.random() < 0.1) {
             BUBBLES[i].style.backgroundColor = COLORS[i % COLORS.length];
         }
     }

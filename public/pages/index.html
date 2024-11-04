@@ -12,25 +12,37 @@
 
     <!-- SCRIPT FILES -->
     <script defer src="../js/feed.js"></script>
-    <!--
-    <script>
-        const logged = localStorage.getItem("user");
-        if (!logged) window.location = "login";
-    </script>
-    -->
 </head>
 
-<body class="body">
-    <header>
-        KTB 2기
-    </header>
+<body id="index-body">
+    <nav id="side-bar">
+        <section id="user-profile-section">
+            <div class="user-avatar-lg"></div>
+            <p class="user-introduce">luis.hwang</p>
+        </section>
 
-    <section class="feed-section">
+        <section id="menu-section">
+            <button class="side-menu">Home</button>
+            <button class="side-menu">Chat</button>
+            <button class="side-menu">Friends</button>
+            <button class="side-menu">Settings</button>
+        </section>
 
-    </section>
+        <section id="logo-section">
+            <p>Serviced by luis.hwang</p>
+        </section>
+    </nav>
 
-    <footer class="footer">
+    <!-- SCRIPT로 동적으로 생성 -->
+    <main id="feed-main">
+        <h1 id="feed-title">Feeds</h1>
+    </main>
 
-    </footer>
+    <div id="loading" class="loading">...</div>
+
+    <nav id="other-contents">
+        <div>asd</div>
+    </nav>
 </body>
+
 </html>
