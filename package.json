@@ -4,7 +4,7 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "node app.js ",
+    "start": "node app.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write ."
@@ -14,6 +14,7 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-prettier": "^5.2.1",
     "express": "^4.21.1",
+    "lottie-web": "^5.12.2",
     "prettier": "^3.3.3"
   },
   "type": "module"
