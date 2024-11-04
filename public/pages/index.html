@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <title>KakaoTech Cloud Native in JEJU 2기</title>
+    <script defer src="../js/bubble.js"></script>
+    <script defer src="../js/feed.js"></script>
+    <script>
+        const logged = localStorage.getItem("user");
+        if (!logged) window.location = "login";
+    </script>
+</head>
+
+<body class="body">
+    <nav class="nav">
+        <p>Home</p>
+        <div class="toggle-container" onclick="toggleButton(this)">
+            <div class="toggle-circle"></div>
+        </div>
+    </nav>
+
+    <section class="feed-section">
+        <div id="feeds">
+            <p>아래로 스크롤해서 새로운 소식을 확인하세요.</p>
+        </div>
+
+        <div id="detail">
+            <article class="article">
+                <div>
+                    <p class="article-title">아직 선택된 피드가 없어요..</p>
+                    <p class="article-writer"></p>
+                </div>
+                <p class="article-content"></p>
+            </article>
+        </div>
+    </section>
+</body>
+</html>
