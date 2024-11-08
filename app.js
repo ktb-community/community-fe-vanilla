@@ -14,7 +14,7 @@ const app = express();
 const PORT = 3000;
 
 // 경로
-const PATH = {
+const DIR_PATH = {
   get ROOT() {
     return process.cwd();
   },
@@ -27,56 +27,64 @@ const PATH = {
   get PAGES() {
     return path.join(this.PUBLIC, 'pages');
   },
-  get JSON() {
-    return path.join(this.PUBLIC, 'json');
-  },
-  get LOGS() {
-    return path.join(this.ROOT, 'logs');
-  },
-  get LOGIN_HISTORY() {
-    return path.join(
-      this.LOGS,
-      `login-${new Date().toDateString().replaceAll(' ', '_')}.txt`,
-    );
-  },
+};
+
+const HTML_PATH = {
+  BOARD_LIST: path.join(DIR_PATH.PAGES, 'index.html'),
+  BOARD_DETAIL: path.join(DIR_PATH.PAGES, 'board.html'),
+  BOARD_MODIFY: path.join(DIR_PATH.PAGES, 'boardModify.html'),
+  BOARD_ADD: path.join(DIR_PATH.PAGES, 'boardAdd.html'),
+  LOGIN: path.join(DIR_PATH.PAGES, 'login.html'),
+  SIGNUP: path.join(DIR_PATH.PAGES, 'signup.html'),
+  USER_MODIFY: path.join(DIR_PATH.PAGES, 'userModify.html'),
+  PASSWORD_MODIFY: path.join(DIR_PATH.PAGES, 'passwordModify.html'),
+  NOT_FOUND: path.join(DIR_PATH.PAGES, 'notFound.html'),
 };
 
 // 미들웨어 설정
-app.use(express.static(PATH.PUBLIC)); // 정적 파일 제공 설정
+app.use(express.static(DIR_PATH.PUBLIC)); // 정적 파일 제공 설정
 app.use(express.urlencoded({ extended: true })); // 임시 로그인 기능을 위해 인코딩 해석 미들웨어 추가
 
 // index 페이지 응답
 app.get('/', (req, res) => {
-  res.sendFile(path.join(PATH.PAGES, 'index.html'));
+  res.sendFile(HTML_PATH.BOARD_LIST);
 });
 
 // login 페이지 응답
 app.get('/login', (req, res) => {
-  res.sendFile(path.join(PATH.PAGES, 'login.html'));
+  res.sendFile(HTML_PATH.LOGIN);
 });
 
-/* 백엔드 서버 구현 전 임시 로그인 기능 구현 */
-app.post('/login', (req, res) => {
-  const body = req.body;
-
-  if (body.name === '' || body.password !== 'start21') {
-    return res.status(400);
-  }
-
-  const data = { ...body, date: new Date() };
-
-  fs.appendFileSync(PATH.LOGIN_HISTORY, JSON.stringify(data) + '\n', 'utf8');
-  res.redirect('http://localhost:3000');
+// signup 페이지 응답
+app.get('/signup', (req, res) => {
+  res.sendFile(HTML_PATH.SIGNUP);
 });
 
-// 이외 경로 접근시 디폴트 페이지
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(PATH.PAGES, 'notFound.html'));
+// 게시글 상세 페이지 응답
+app.get('/boardDetail', (req, res) => {
+  res.sendFile(HTML_PATH.BOARD_DETAIL);
+});
+
+// 게시글 추가 페이지 응답
+app.get('/boardAdd', (req, res) => {
+  res.sendFile(HTML_PATH.BOARD_ADD);
+});
+
+// 게시글 수정 페이지 응답
+app.get('/boardModify', (req, res) => {
+  res.sendFile(HTML_PATH.BOARD_MODIFY);
+});
+
+// 유저 닉네임 수정 페이지 응답
+app.get('/userModify', (req, res) => {
+  res.sendFile(HTML_PATH.USER_MODIFY);
+});
+
+// 비밀번호 수정 페이지 응답
+app.get('/passwordModify', (req, res) => {
+  res.sendFile(HTML_PATH.PASSWORD_MODIFY);
 });
 
 app.listen(PORT, () => {
-  if (!fs.existsSync(PATH.LOGIN_HISTORY)) {
-    fs.writeFileSync(PATH.LOGIN_HISTORY, '', 'utf8');
-  }
   console.log(`Server is running on http://localhost:${PORT}`);
 });
