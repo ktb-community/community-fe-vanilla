@@ -1,60 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KakaoTech Cloud Native in JEJU 2기 커뮤니티</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="../css/signup.css" />
     <link rel="stylesheet" href="../css/common.css" />
     <!-- SCRIPT -->
-</head>
+  </head>
 
-<body id="body">
+  <body id="body">
     <header id="header">
-        <input type="button" class="prev-btn" value="&lt;" />
-        <p>아무 말 대잔치</p>
+      <input type="button" class="prev-btn" value="&lt;" />
+      <p>아무 말 대잔치</p>
     </header>
 
     <article id="article">
-        <header>
-            <h2>회원가입</h2>
+      <header>
+        <h2>회원가입</h2>
+      </header>
+      <section id="signup-header-section">
+        <header id="signup-header">
+          <span>프로필 사진</span><br />
+          <span class="helper-text">*helper text</span>
         </header>
-        <section id="signup-header-section">
-            <header id="signup-header">
-                <span>프로필 사진</span><br />
-                <span class="helper-text">*helper text</span>
-            </header>
-            <label class="file-label" for="file-upload">
-                <input id="file-upload" type="file" accept=".jpg">
-                <p>+</p>
-            </label>
-        </section>
-        <section id="signup-section">
-            <form id="signup-form">
-                <label for="email">이메일*
-                    <input id="email" class="input" type="text" placeholder="이메일을 입력하세요." />
-                    <span class="helper-text">*helper text</span>
-                </label>
-                <label for="email">비밀번호*
-                    <input id="email" class="input" type="text" placeholder="이메일을 입력하세요." />
-                    <span class="helper-text">*helper text</span>
-                </label>
-                <label for="email">비밀번호 확인*
-                    <input id="email" class="input" type="text" placeholder="이메일을 입력하세요." />
-                    <span class="helper-text">*helper text</span>
-                </label>
-                <label for="email">닉네임*
-                    <input id="email" class="input" type="text" placeholder="이메일을 입력하세요." />
-                    <span class="helper-text">*helper text</span>
-                </label>
-                <input type="submit" class="submit-btn" value="회원가입" />
-            </form>
-            <a class="link" href="/login">로그인하러 가기</a>
-        </section>
+        <label class="file-label" for="file-upload">
+          <input id="file-upload" type="file" accept=".jpg" />
+          <p>+</p>
+        </label>
+      </section>
+      <section id="signup-section">
+        <form id="signup-form">
+          <label for="email"
+            >이메일*
+            <input id="email" class="input" type="text" placeholder="이메일을 입력하세요." />
+            <span class="helper-text">*helper text</span>
+          </label>
+          <label for="password"
+            >비밀번호*
+            <input id="password" class="input" type="text" placeholder="이메일을 입력하세요." />
+            <span class="helper-text">*helper text</span>
+          </label>
+          <label for="passwordCheck"
+            >비밀번호 확인*
+            <input id="passwordCheck" class="input" type="text" placeholder="이메일을 입력하세요." />
+            <span class="helper-text">*helper text</span>
+          </label>
+          <label for="nickname"
+            >닉네임*
+            <input id="nickname" class="input" type="text" placeholder="이메일을 입력하세요." />
+            <span class="helper-text">*helper text</span>
+          </label>
+          <input type="submit" class="submit-btn" value="회원가입" />
+        </form>
+        <a class="link" href="/login">로그인하러 가기</a>
+      </section>
     </article>
-</body>
-
+  </body>
 </html>

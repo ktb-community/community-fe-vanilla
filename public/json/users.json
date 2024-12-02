@@ -1,0 +1,12 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "email": "luis.hwang@gmail.com",
+      "password": "123123Aa!@",
+      "nickname": "luis.hwang",
+      "profileImg": "http://localhost:3000/uploads/황승수.jpg",
+      "lastLoginDate": "2024/12/01 16:43:00"
+    }
+  ]
+}

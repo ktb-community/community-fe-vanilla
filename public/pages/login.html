@@ -1,40 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KakaoTech Cloud Native in JEJU 2기 커뮤니티</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="../css/login.css" />
     <link rel="stylesheet" href="../css/common.css" />
-    <!-- SCRIPT -->
-</head>
 
-<body id="body">
+    <!-- SCRIPT -->
+    <script defer type="module" src="../scripts/login/loadLoginPage.js"></script>
+    <script defer type="module" src="../scripts/login/login.js"></script>
+  </head>
+
+  <body id="body">
     <header id="header">
-        <p>아무 말 대잔치</p>
+      <p>아무 말 대잔치</p>
     </header>
 
     <article id="article">
-        <header>
-            <h2>로그인</h2>
-        </header>
-        <section>
-            <form id="login-form">
-                <label for="email">이메일
-                    <input id="email" class="input" type="text" placeholder="이메일을 입력하세요." />
-                </label>
-                <label for="password">비밀번호
-                    <input id="password" class="input" type="text" placeholder="비밀번호를 입력하세요." />
-                </label>
-                <span class="helper-text">*helper text</span>
-                <input type="submit" class="submit-btn" value="로그인" />
-                <a class="link" href="/index.html">회원가입</p>
-            </form>
-        </section>
+      <header style="text-align: center; font-size: 22px">
+        <h2>로그인</h2>
+      </header>
+      <section style="min-width: 580px">
+        <form id="login-form">
+          <label for="email"
+            >이메일
+            <input id="email" class="input" type="text" placeholder="이메일을 입력하세요." autocomplete="email" />
+            <span id="helper-text-email" class="helper-text"></span>
+          </label>
+          <label for="password"
+            >비밀번호
+            <input id="password" class="input" type="password" placeholder="비밀번호를 입력하세요." autocomplete="current-password" />
+            <span id="helper-text-password" class="helper-text"></span>
+          </label>
+          <input id="submit-btn" type="submit" value="로그인" />
+          <a class="link" href="/signup">회원가입</a>
+        </form>
+      </section>
     </article>
-</body>
-
+  </body>
 </html>

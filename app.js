@@ -1,31 +1,24 @@
-import express from 'express';
-import path from 'path';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
-
-/* NOTE
- * - '__dirname': 현재 파일이 위치한 폴더의 절대경로
- * - '__filename': 현재 파일명
- *
- * 위 환경변수는 CommonJS 환경에서만 사용 가능하며, ES Module인 경우 'import.meta.url'을 사용한다.
- */
+const express = require('express');
+const path = require('path');
+const fs = require('fs');
+const { sendJSONResponse } = require('./utils/utils.js');
 
 const app = express();
 const PORT = 3000;
 
 // 경로
 const DIR_PATH = {
-  get ROOT() {
-    return process.cwd();
-  },
-  get __dirname() {
-    return fileURLToPath(new URL('.', import.meta.url));
+  get UPLOADS() {
+    return path.join(__dirname, 'uploads');
   },
   get PUBLIC() {
-    return path.join(this.__dirname, 'public');
+    return path.join(__dirname, 'public');
   },
   get PAGES() {
     return path.join(this.PUBLIC, 'pages');
+  },
+  get JSON() {
+    return path.join(this.PUBLIC, 'json');
   },
 };
 
@@ -42,8 +35,10 @@ const HTML_PATH = {
 };
 
 // 미들웨어 설정
+app.use(express.static(DIR_PATH.UPLOADS));
 app.use(express.static(DIR_PATH.PUBLIC)); // 정적 파일 제공 설정
 app.use(express.urlencoded({ extended: true })); // 임시 로그인 기능을 위해 인코딩 해석 미들웨어 추가
+app.use(express.json());
 
 // index 페이지 응답
 app.get('/', (req, res) => {
@@ -83,6 +78,49 @@ app.get('/userModify', (req, res) => {
 // 비밀번호 수정 페이지 응답
 app.get('/passwordModify', (req, res) => {
   res.sendFile(HTML_PATH.PASSWORD_MODIFY);
+});
+
+// ================================== API RESPONSE ======================================
+const RES_STATUS = Object.freeze({
+  SUCCESS: 'Success',
+  FAIL: 'Fail',
+  ERROR: 'Error',
+
+  /* LOGIN */
+  EMAIL_NOT_FOUND: 'Email not found',
+  PASSWORD_NOT_MATCH: 'Password not match',
+});
+
+app.post('/api/v1/auth/login', (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const json = JSON.parse(fs.readFileSync(`${DIR_PATH.JSON}/users.json`, 'utf-8'));
+    const users = json.data;
+    const findedUser = users.find(user => user.email === email);
+
+    /* 존재하지 않는 유저인 경우 */
+    if (!findedUser) {
+      return sendJSONResponse(res, 400, RES_STATUS.EMAIL_NOT_FOUND, '* 가입되지 않은 계정입니다.');
+    }
+
+    /* 비밀번호가 일치하지 않는 경우 */
+    if (findedUser.password !== password) {
+      return sendJSONResponse(res, 400, RES_STATUS.PASSWORD_NOT_MATCH, '* 비밀번호가 다릅니다.');
+    }
+
+    const resData = {
+      id: findedUser.id,
+      email: findedUser.email,
+      nickname: findedUser.nickname,
+      lastLoginDate: findedUser.lastLoginDate,
+      profileImg: findedUser.profileImg,
+    };
+
+    return sendJSONResponse(res, 200, RES_STATUS.SUCCESS, '로그인이 성공적으로 완료되었습니다.', resData);
+  } catch (e) {
+    console.error(e);
+  }
 });
 
 app.listen(PORT, () => {
