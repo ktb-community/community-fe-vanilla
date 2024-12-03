@@ -80,49 +80,6 @@ app.get('/passwordModify', (req, res) => {
   res.sendFile(HTML_PATH.PASSWORD_MODIFY);
 });
 
-// ================================== API RESPONSE ======================================
-const RES_STATUS = Object.freeze({
-  SUCCESS: 'Success',
-  FAIL: 'Fail',
-  ERROR: 'Error',
-
-  /* LOGIN */
-  EMAIL_NOT_FOUND: 'Email not found',
-  PASSWORD_NOT_MATCH: 'Password not match',
-});
-
-app.post('/api/v1/auth/login', (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const json = JSON.parse(fs.readFileSync(`${DIR_PATH.JSON}/users.json`, 'utf-8'));
-    const users = json.data;
-    const findedUser = users.find(user => user.email === email);
-
-    /* 존재하지 않는 유저인 경우 */
-    if (!findedUser) {
-      return sendJSONResponse(res, 400, RES_STATUS.EMAIL_NOT_FOUND, '* 가입되지 않은 계정입니다.');
-    }
-
-    /* 비밀번호가 일치하지 않는 경우 */
-    if (findedUser.password !== password) {
-      return sendJSONResponse(res, 400, RES_STATUS.PASSWORD_NOT_MATCH, '* 비밀번호가 다릅니다.');
-    }
-
-    const resData = {
-      id: findedUser.id,
-      email: findedUser.email,
-      nickname: findedUser.nickname,
-      lastLoginDate: findedUser.lastLoginDate,
-      profileImg: findedUser.profileImg,
-    };
-
-    return sendJSONResponse(res, 200, RES_STATUS.SUCCESS, '로그인이 성공적으로 완료되었습니다.', resData);
-  } catch (e) {
-    console.error(e);
-  }
-});
-
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

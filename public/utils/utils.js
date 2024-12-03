@@ -13,3 +13,11 @@ export function isValidPassword(password) {
     /[!@#$%^&*]/.test(password)
   );
 }
+
+export function includeSpacing(nickname) {
+  return nickname.includes(' ');
+}
+
+export function isValidNickname(nickname) {
+  return !includeSpacing(nickname) && nickname.length > 0 && nickname.length <= 10;
+}

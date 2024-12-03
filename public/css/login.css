@@ -19,29 +19,8 @@
     padding: 0 8px;
 }
 
-#submit-btn {
-    width: 350px;
-    height: 42px;
-    border-radius: 25px;
-    font-size: 16px;
-    color: white;
-    background-color: #ACA0EB;
-    border: none;
-}
 
-.isNotAllowed {
-    background-color: #ACA0EB;
-    cursor: not-allowed;
-}
 
-.isAllowed {
-    background-color: #7F6AEE;
-    cursor: pointer;
-}
-
-.isAllowed:hover {
-    opacity: 0.7;
-}
 
 #login-form .link {
     text-decoration: underline;

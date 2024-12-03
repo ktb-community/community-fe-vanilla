@@ -1,21 +1,21 @@
 import { isValidEmail, isValidPassword } from '../../utils/utils.js';
-
+import { EMAIL_HELPER_TEXT, PASSWORD_HELPER_TEXT } from '../../utils/const.js';
 const emailElement = document.getElementById('email');
-const emailSpanElement = document.getElementById('helper-text-email');
+const emailHelperTextElement = document.getElementById('helper-text-email');
 const passwordElement = document.getElementById('password');
-const passwordSpanElement = document.getElementById('helper-text-password');
+const passwordHelperTextElement = document.getElementById('helper-text-password');
 const submitBtnElement = document.getElementById('submit-btn');
 
 document.addEventListener('DOMContentLoaded', e => {
   e.preventDefault();
 
   /* 이메일, 패스워드 헬퍼 텍스트 등록 */
-  if (emailElement && emailSpanElement) {
-    emailSpanElement.textContent = '* 올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)';
+  if (emailHelperTextElement && emailElement) {
+    emailHelperTextElement.textContent = EMAIL_HELPER_TEXT.INVALIDATED;
   }
 
-  if (passwordElement && passwordSpanElement) {
-    passwordSpanElement.textContent = '* 비밀번호를 입력해주세요.';
+  if (passwordElement && passwordHelperTextElement) {
+    passwordHelperTextElement.textContent = PASSWORD_HELPER_TEXT.EMPTY;
   }
 
   /* 로그인 버튼 설정 */
@@ -31,7 +31,7 @@ emailElement.addEventListener('input', e => {
   e.preventDefault();
 
   const email = e.target.value;
-  emailSpanElement.textContent = !isValidEmail(email) ? '* 올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)' : '';
+  emailHelperTextElement.textContent = !isValidEmail(email) ? EMAIL_HELPER_TEXT.INVALIDATED : '';
   setSubmitBtn();
 });
 
@@ -39,12 +39,8 @@ passwordElement.addEventListener('input', e => {
   e.preventDefault();
 
   const password = e.target.value;
-  passwordSpanElement.textContent =
-    password === ''
-      ? '* 비밀번호를 입력해주세요.'
-      : !isValidPassword(password)
-        ? '* 비밀번호는 8자 이상, 20자 이하이며, 대문자, 소문자, 숫자, 특수문자를 각각 최소 1개 포함해야 합니다.'
-        : '';
+  passwordHelperTextElement.textContent =
+    password === '' ? PASSWORD_HELPER_TEXT.EMPTY : !isValidPassword(password) ? PASSWORD_HELPER_TEXT.INVALIDATED : '';
   setSubmitBtn();
 });
 

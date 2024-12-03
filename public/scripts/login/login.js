@@ -1,6 +1,6 @@
-import { RES_STATUS } from '../../utils/const.js';
+import { EMAIL_HELPER_TEXT, PASSWORD_HELPER_TEXT, RES_STATUS } from '../../utils/const.js';
 
-const REQUEST_URL = 'http://localhost:3000/api/v1';
+const REQUEST_URL = 'http://localhost:8000/api/v1';
 const formElement = document.getElementById('login-form');
 const emailElement = document.getElementById('email');
 const passwordElement = document.getElementById('password');
@@ -30,20 +30,17 @@ formElement.addEventListener('submit', async e => {
     /* 요청 실패 (400) */
     if (res.status === 400) {
       if (json.status === RES_STATUS.EMAIL_NOT_FOUND) {
-        emailHelperTextElement.textContent = json.msg;
-        alert(json.msg);
+        emailHelperTextElement.textContent = EMAIL_HELPER_TEXT.DUPLICATED;
+        alert(json.message);
         emailElement.focus();
       } else if (json.status === RES_STATUS.PASSWORD_NOT_MATCH) {
-        passwordHelperTextElement.textContent = json.msg;
-        alert(json.msg);
+        passwordHelperTextElement.textContent = PASSWORD_HELPER_TEXT.INVALIDATED;
+        alert(json.message);
         passwordElement.focus();
       }
-
-      return;
-    }
+    } else if (res.status === 200) {
 
     /* 로그인 성공 */
-    if (res.status === 200) {
       window.location.href = '/';
       localStorage.setItem('user', JSON.stringify(json.data));
       return;
