@@ -56,7 +56,7 @@ app.get('/signup', (req, res) => {
 });
 
 // 게시글 상세 페이지 응답
-app.get('/boardDetail', (req, res) => {
+app.get('/boards', (req, res) => {
   res.sendFile(HTML_PATH.BOARD_DETAIL);
 });
 

@@ -119,3 +119,10 @@
     background-color: lightgray;
     border-radius: 50%;
 }
+
+.ellipsis-26 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(26ch);
+}

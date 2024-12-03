@@ -77,8 +77,6 @@ profileImgInputElement.addEventListener('change', e => {
 emailInputElement.addEventListener('input', e => {
   e.preventDefault();
   const email = e.target.value;
-
-  // TODO: 중복은 회원가입 버튼 클릭 이후 설정
   emailHelperTextElement.textContent = email === '' ? EMAIL_HELPER_TEXT.EMPTY : !isValidEmail(email) ? EMAIL_HELPER_TEXT.INVALIDATED : '';
   setSignupBtn();
 });
@@ -123,7 +121,6 @@ nicknameInputElement.addEventListener('input', e => {
   e.preventDefault();
   const nickname = e.target.value;
 
-  // TODO: 중복 텍스트는 회원가입 버튼 클릭 이후 설정
   nicknameHelperTextElement.textContent =
     nickname === ''
       ? NICKNAME_HELPER_TEXT.EMPTY

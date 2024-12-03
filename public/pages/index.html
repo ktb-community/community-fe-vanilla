@@ -11,6 +11,7 @@
 
     <!-- SCRIPTS -->
     <script src="../scripts/common/routeIfLogin.js"></script>
+    <script defer src="../scripts/index/loadIndexPage.js"></script>
   </head>
 
   <body id="body">
@@ -30,75 +31,10 @@
           <label for="board-add-btn" id="board-add-btn-label">
             <input id="board-add-btn" type="button" value="게시글 작성" />
           </label>
-
-          <div id="board-container">
-            <div class="board">
-              <h1 class="board-title">제목 1</h1>
-              <div class="board-info">
-                <div>
-                  <span>좋아요 0</span>
-                  <span>댓글 0</span>
-                  <span>조회수 0</span>
-                </div>
-                <div>2021-01-01 00:00:00</div>
-              </div>
-              <hr class="board-hor" />
-              <div class="board-writer">
-                <div class="avatar"></div>
-                <span>작성자 1</span>
-              </div>
-            </div>
-            <div class="board">
-              <h1 class="board-title">제목 1</h1>
-              <div class="board-info">
-                <div>
-                  <span>좋아요 0</span>
-                  <span>댓글 0</span>
-                  <span>조회수 0</span>
-                </div>
-                <div>2021-01-01 00:00:00</div>
-              </div>
-              <hr class="board-hor" />
-              <div class="board-writer">
-                <div class="avatar"></div>
-                <span>작성자 1</span>
-              </div>
-            </div>
-            <div class="board">
-              <h1 class="board-title">제목 1</h1>
-              <div class="board-info">
-                <div>
-                  <span>좋아요 0</span>
-                  <span>댓글 0</span>
-                  <span>조회수 0</span>
-                </div>
-                <div>2021-01-01 00:00:00</div>
-              </div>
-              <hr class="board-hor" />
-              <div class="board-writer">
-                <div class="avatar"></div>
-                <span>작성자 1</span>
-              </div>
-            </div>
-            <div class="board">
-              <h1 class="board-title">제목 1</h1>
-              <div class="board-info">
-                <div>
-                  <span>좋아요 0</span>
-                  <span>댓글 0</span>
-                  <span>조회수 0</span>
-                </div>
-                <div>2021-01-01 00:00:00</div>
-              </div>
-              <hr class="board-hor" />
-              <div class="board-writer">
-                <div class="avatar"></div>
-                <span>작성자 1</span>
-              </div>
-            </div>
-          </div>
+          <div id="board-container"></div>
         </section>
       </div>
+      <div id="trigger-board-list" style="height: 25px"></div>
     </article>
   </body>
 </html>
