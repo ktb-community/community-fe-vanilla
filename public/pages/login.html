@@ -10,16 +10,15 @@
     <link rel="stylesheet" href="../css/common.css" />
 
     <!-- SCRIPT -->
+    <script src="../components/header.js"></script>
     <script defer type="module" src="../scripts/login/loadLoginPage.js"></script>
     <script defer type="module" src="../scripts/login/login.js"></script>
   </head>
 
   <body id="body">
-    <header id="header">
-      <p>아무 말 대잔치</p>
-    </header>
+    <custom-header text="아무 말 대잔치" show-back="false" show-avatar="false"></custom-header>
 
-    <article id="article">
+    <main id="login-main">
       <header style="text-align: center; font-size: 22px">
         <h2>로그인</h2>
       </header>
@@ -39,6 +38,6 @@
           <a class="link" href="/signup">회원가입</a>
         </form>
       </section>
-    </article>
+    </main>
   </body>
 </html>

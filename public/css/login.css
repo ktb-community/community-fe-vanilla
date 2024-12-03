@@ -1,3 +1,13 @@
+#login-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+    min-width: 600px;
+    height: 80vh;
+    margin: 0 auto;
+}
+
 #login-form {
     display: flex;
     flex-direction: column;
@@ -12,15 +22,6 @@
     gap: 12px;
     font-size: 20px;
 }
-
-#login-form label input {
-    width: 500px;
-    height: 36px;
-    padding: 0 8px;
-}
-
-
-
 
 #login-form .link {
     text-decoration: underline;

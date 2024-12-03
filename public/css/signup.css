@@ -1,18 +1,21 @@
-#signup-header-section {
+#signup-main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: start;
-    width: 300px;
-    gap: 14px;
+    max-width: 600px;
+    min-width: 600px;
+    height: 90vh;
+    margin: 36px auto;
 }
 
-#signup-header-section > .file-label {
+#signup-page-header {
     margin: auto;
 }
 
-#signup-header > span:first-child {
-    font-weight: bold;
+
+#signup-header div {
+    width: 520px;
+    text-align: start;
 }
 
 #signup-section {
@@ -27,7 +30,7 @@
     justify-content: center;
     align-items: center;
     gap: 16px;
-    margin: 24px 0;
+    margin: 16px 0 0 0;
 }
 
 #signup-form > label {
@@ -36,7 +39,10 @@
     gap: 2px;
 }
 
-#signup-form > input[type='submit'] {
-    width: 100%;
-    height: 32px;
+#signup-form input {
+    margin: 5px 0;
+}
+
+#signup-btn {
+    margin-top: 120px;
 }

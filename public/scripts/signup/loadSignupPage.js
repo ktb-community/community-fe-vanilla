@@ -7,7 +7,6 @@ import {
 } from '../../utils/const.js';
 import { includeSpacing, isValidEmail, isValidNickname, isValidPassword } from '../../utils/utils.js';
 
-const prevBtnElement = document.getElementById('prev-btn');
 const profileImgInputElement = document.getElementById('file-upload');
 const profileImgAvatarElement = document.getElementById('profile-img-avatar');
 const emailInputElement = document.getElementById('email');
@@ -41,11 +40,6 @@ document.addEventListener('DOMContentLoaded', e => {
   signupBtnElement.classList.remove('isAllowed');
   signupBtnElement.classList.add('isNotAllowed');
   signupBtnElement.disabled = true;
-});
-
-prevBtnElement.addEventListener('click', e => {
-  e.preventDefault();
-  window.history.back();
 });
 
 profileImgInputElement.addEventListener('change', e => {

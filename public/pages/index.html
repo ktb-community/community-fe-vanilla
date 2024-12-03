@@ -10,16 +10,15 @@
     <link rel="stylesheet" href="../css/common.css" />
 
     <!-- SCRIPTS -->
+    <script src="../components/header.js"></script>
     <script src="../scripts/common/routeIfLogin.js"></script>
     <script defer src="../scripts/index/loadIndexPage.js"></script>
   </head>
 
   <body id="body">
-    <header id="header">
-      <p>아무 말 대잔치</p>
-    </header>
+    <custom-header text="아무 말 대잔치" show-back="false" show-avatar="true"></custom-header>
 
-    <article id="article">
+    <main id="index-main">
       <div>
         <section id="board-section">
           <header id="board-header">
@@ -35,6 +34,6 @@
         </section>
       </div>
       <div id="trigger-board-list" style="height: 25px"></div>
-    </article>
+    </main>
   </body>
 </html>
