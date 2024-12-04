@@ -94,6 +94,8 @@
     padding: 10px 10px;
     box-sizing: border-box;
     font-size: 15px;
+    border-width: 2px;
+    border-radius: 10px;
 }
 
 #board-comments-add-btn {
@@ -111,6 +113,9 @@
 #board-comments-container {
     width: 100%;
     margin-top: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 }
 
 .board-comments-info-container {
@@ -139,7 +144,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 7px;
+    gap: 5px;
+}
+
+.board-comments-info > .avatar {
+    margin-right: 8px;
 }
 
 .board-comments-info-writer {
@@ -150,6 +159,7 @@
 .board-comments-info-time {
     font-size: 12px;
     margin-left: 10px;
+    text-align: end;
 }
 
 .board-comments-comment-container {
