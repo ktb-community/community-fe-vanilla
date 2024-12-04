@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async e => {
 
     boards.forEach(board => {
       const boardDiv = document.createElement('div');
-      boardDiv.className = 'board';
+      boardDiv.className = 'boards';
       boardDiv.innerHTML = `
         <h1 class="board-title">${board.title}</h1>
         <div class="board-info">
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async e => {
 
       boardDiv.addEventListener('click', e => {
         e.preventDefault();
-        window.location.href = `/boards?id=${board.boardId}`;
+        window.location.href = `/boards/${board.boardId}?id=${board.boardId}`;
       });
 
       // 아바타 이미지 추가
@@ -105,5 +105,5 @@ document.addEventListener('DOMContentLoaded', async e => {
 
 boardAddBtnElement.addEventListener('click', e => {
   e.preventDefault();
-  window.location.href = '/boardAdd';
+  window.location.href = '/boards/new';
 });

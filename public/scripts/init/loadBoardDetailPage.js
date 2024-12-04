@@ -6,23 +6,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     return fetch(`${REQUEST_URL}/boards/${boardId}/views`, { method: 'POST' });
   };
 
-  // 뒤로가기 버튼 적용
-  const prevBtnElement = document.getElementById('prev-btn');
-  prevBtnElement.addEventListener('click', e => {
-    e.preventDefault();
-    window.history.back();
-  });
-
   // 게시글 상세 정보 동적 추가 함수
   const appendBoardDetail = boardDetail => {
     /* 게시글 제목 */
-    const boardDetailTitleElement = document.getElementById('board-detail-title');
+    const boardDetailTitleElement = document.getElementById('boards-detail-title');
     boardDetailTitleElement.innerHTML += `
       <h1 class="ellipsis-26">${boardDetail.title}</h1>
     `;
 
     /* 게시글 메타 정보 */
-    const boardDetailInfoContainerElement = document.getElementById('board-detail-info-container');
+    const boardDetailInfoContainerElement = document.getElementById('boards-detail-info-container');
     boardDetailInfoContainerElement.innerHTML += `
       <div id="board-detail-info">
         <div id="avatar-div" class="avatar"></div>
@@ -44,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     avatarDiv.style.backgroundPosition = 'center';
 
     /* 이미지와 본문 표시 */
-    const boardDetailContentContainerElement = document.getElementById('board-detail-content-container');
+    const boardDetailContentContainerElement = document.getElementById('boards-detail-content-container');
     boardDetailContentContainerElement.innerHTML += `
       <div id="board-detail-img-container">
         <img src=${boardDetail.boardImg} alt="" />

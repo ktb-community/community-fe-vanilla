@@ -11,8 +11,8 @@
 
     <!-- SCRIPT -->
     <script src="../components/header.js"></script>
-    <script defer type="module" src="../scripts/signup/loadSignupPage.js"></script>
-    <script defer type="module" src="../scripts/signup/signup.js"></script>
+    <script defer type="module" src="../scripts/init/loadSignupPage.js"></script>
+    <script defer type="module" src="../scripts/auth/signup.js"></script>
   </head>
 
   <body id="body">
@@ -23,7 +23,7 @@
         <h2>회원가입</h2>
       </header>
 
-      <section id="signup-section">
+      <section id="signup-container">
         <header id="signup-header">
           <div>
             <span>프로필 사진*</span><br />
@@ -31,7 +31,7 @@
           </div>
         </header>
         <label id="profile-img-avatar" class="file-label" for="file-upload">
-          <input id="file-upload" type="file" accept=".jpg" />
+          <input id="file-upload" type="file" accept="image/*" />
           <p>+</p>
         </label>
 
@@ -64,7 +64,7 @@
           </label>
           <input id="signup-btn" type="submit" class="submit-btn" value="회원가입" />
         </form>
-        <a class="link" href="/login">로그인하러 가기</a>
+        <a class="link" href="/auth/login">로그인하러 가기</a>
       </section>
     </main>
   </body>

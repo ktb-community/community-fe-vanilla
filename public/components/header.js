@@ -10,9 +10,13 @@ class Header extends HTMLElement {
       <style>
         .header {
           width: 100%;
-          height: 8vh;
+          min-height: 8vh;
           border-bottom: 2px solid gray;
           position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
         }
         
         .header-item-container {
@@ -28,7 +32,7 @@ class Header extends HTMLElement {
           border: none;
           background: none;
           font-size: 26px;
-          margin-top: 5px;
+          margin-left: 15px;
           cursor: pointer;
           color: darkgray;
         }
@@ -53,7 +57,7 @@ class Header extends HTMLElement {
         }  
         
         .avatar-dropdown-button {
-          border: none;
+          border: 1px solid lightgray;
           border-radius: 50%;
           width: 48px;
           height: 48px;
@@ -96,15 +100,14 @@ class Header extends HTMLElement {
         .avatar-container-focus-within .avatar-dropdown-menu {
           display: block;
         }
-        
       </style>
       
       <header class="header">
         <div class="header-item-container">
           <button class="back-button"><</button>
           <span class="text"></span>
-          <div class="avatar-dropdown avatar-dropdown-container">
-            <button class="avatar-dropdown-button">
+          <div id="avatar-dropdown-container" class="avatar-dropdown avatar-dropdown-container">
+            <button id="avatar-dropdown-btn" class="avatar-dropdown-button">
             </button>
             <div class="avatar-dropdown-menu">
               <button id="edit-user-info-btn">회원정보수정</button>
@@ -133,17 +136,17 @@ class Header extends HTMLElement {
 
     editUserInfoBtnElement.addEventListener('click', e => {
       e.preventDefault();
-      window.location.href = '/userModify';
+      window.location.href = '/users/edit';
     });
 
     editUserPasswordBtnElement.addEventListener('click', e => {
       e.preventDefault();
-      window.location.href = '/passwordModify';
+      window.location.href = '/users/edit/password';
     });
 
     logoutBtnElement.addEventListener('click', e => {
       localStorage.removeItem('user');
-      window.location.href = '/login';
+      window.location.href = '/auth/login';
     });
   }
 
@@ -165,7 +168,8 @@ class Header extends HTMLElement {
 
     // 요소 선택
     const backButton = this.shadowRoot.querySelector('.back-button');
-    const avatarDropdown = this.shadowRoot.querySelector('.avatar-dropdown');
+    const avatarDropdown = this.shadowRoot.querySelector('#avatar-dropdown-container');
+    const avatarDropdownBtn = this.shadowRoot.querySelector('#avatar-dropdown-btn');
     const textElement = this.shadowRoot.querySelector('.text');
 
     // 가시성 설정
@@ -174,6 +178,15 @@ class Header extends HTMLElement {
 
     // 텍스트 설정
     textElement.textContent = text;
+
+    // 아바타가 설정되어 있으면 배경 설정
+    if (avatarDropdown.classList.contains('visible')) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      avatarDropdownBtn.style.backgroundImage = `url(${user.profile})`;
+      avatarDropdownBtn.style.backgroundPosition = 'center center';
+      avatarDropdownBtn.style.backgroundSize = 'cover';
+      avatarDropdownBtn.style.backgroundRepeat = 'no-repeat';
+    }
   }
 }
 

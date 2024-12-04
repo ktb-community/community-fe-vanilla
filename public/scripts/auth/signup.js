@@ -46,7 +46,7 @@ signupFormElement.addEventListener('submit', async e => {
 
     if (res.status === 201) {
       alert(json.message);
-      window.location.href = '/login';
+      window.location.href = '/auth/login';
     }
   } catch (e) {
     console.error(`네트워크 에러 발생: ${e}`);

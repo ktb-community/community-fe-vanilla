@@ -1,0 +1,31 @@
+#board-add-main {
+    max-width: 600px;
+    min-width: 600px;
+    min-height: 100vh;
+    margin: 36px auto;
+}
+
+#board-add-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+#board-add-content {
+    min-width: 500px;
+    min-height: 360px;
+    padding: 10px;
+    resize: none;
+}
+
+#board-add-img {
+    min-width: 520px;
+}
+
+#board-add-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 54px;
+}

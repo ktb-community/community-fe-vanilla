@@ -4,7 +4,7 @@
     justify-content: center;
     max-width: 600px;
     min-width: 600px;
-    height: 90vh;
+    min-height: 90vh;
     margin: 36px auto;
 }
 
@@ -12,16 +12,24 @@
     margin: auto;
 }
 
-
 #signup-header div {
-    width: 520px;
+    width: 515px;
     text-align: start;
+    margin-top: 32px;
 }
 
-#signup-section {
+#signup-header div:first-child {
+    font-weight: bold;
+}
+
+#signup-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#profile-img-avatar {
+    margin-top: 16px;
 }
 
 #signup-form {
@@ -29,8 +37,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 16px;
-    margin: 16px 0 0 0;
+    gap: 32px;
+    margin: 32px 0 0 0;
 }
 
 #signup-form > label {
@@ -41,8 +49,4 @@
 
 #signup-form input {
     margin: 5px 0;
-}
-
-#signup-btn {
-    margin-top: 120px;
 }

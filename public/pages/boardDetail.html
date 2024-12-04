@@ -11,15 +11,12 @@
 
     <!-- SCRIPTS -->
     <script src="../scripts/common/routeIfLogin.js"></script>
-    <script defer src="../scripts/board/loadBoardDetailPage.js"></script>
+    <script src="../components/header.js"></script>
+    <script defer src="../scripts/init/loadBoardDetailPage.js"></script>
   </head>
 
   <body id="body">
-    <header id="header">
-      <input type="button" id="prev-btn" class="prev-btn" value="&lt;" />
-      <p>아무 말 대잔치</p>
-      <div class="avatar"></div>
-    </header>
+    <custom-header text="아무 말 대잔치" show-back="true" show-avatar="true"></custom-header>
 
     <article id="board-detail-article">
       <section>

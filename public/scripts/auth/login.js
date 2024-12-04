@@ -39,9 +39,8 @@ formElement.addEventListener('submit', async e => {
         passwordElement.focus();
       }
     } else if (res.status === 200) {
-
-    /* 로그인 성공 */
-      window.location.href = '/';
+      /* 로그인 성공 */
+      window.location.href = '/boards';
       localStorage.setItem('user', JSON.stringify(json.data));
       return;
     }
