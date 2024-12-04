@@ -5,7 +5,6 @@
     margin: 3% auto 0;
 }
 
-
 #board-add-btn-label {
     display: flex;
     justify-content: end;
@@ -37,6 +36,19 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+}
+
+#board-container > div {
+    border: 2px solid lightgray;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 0 16px 16px 25px;
+    z-index: 1000;
+    box-shadow: darkgrey 2px 2px 2px 2px;
+}
+
+#board-container > div:hover {
+    background-color: lightgray;
 }
 
 .board {

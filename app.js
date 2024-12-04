@@ -29,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // 라우팅
+app.get('/', (req, res) => res.redirect('/boards'));
 app.get('/auth/login', (req, res) => res.sendFile(HTML_PATH.LOGIN));
 app.get('/auth/signup', (req, res) => res.sendFile(HTML_PATH.SIGNUP));
 
