@@ -1,6 +1,7 @@
 import API from '../../api/api.js';
 import { RES_STATUS } from '../../utils/const.js';
 import { renderBoardComment } from './boardDetailRenderer.js';
+import { handleModalOpen } from './boardDetailHandler.js';
 
 /* 댓글 추가 (낙관적 업데이트) */
 export const handleAddComment = (userId, boardId) => {
@@ -54,4 +55,6 @@ export const handleAddComment = (userId, boardId) => {
 export const handleEditComment = () => {};
 
 /* 댓글 삭제 (낙관적 업데이트) */
-export const handleDeleteComment = () => {};
+export const handleDeleteComment = () => {
+  handleModalOpen();
+};

@@ -19,3 +19,13 @@ export const handleBoardLike = async e => {
     console.error(err.message);
   }
 };
+
+export const handleModalOpen = () => {
+  const modalElement = document.getElementById('my-modal');
+
+  console.log(modalElement);
+
+  if (modalElement) {
+    modalElement.open();
+  }
+};
