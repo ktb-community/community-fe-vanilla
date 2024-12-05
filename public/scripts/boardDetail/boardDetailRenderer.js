@@ -1,7 +1,10 @@
-import { handleAddComment, handleEditComment, handleDeleteComment } from './boardCommentHandler.js';
-import { handleBoardLike } from './boardDetailHandler.js';
+import { handleAddComment, handleEditComment, handleDeleteComment } from './boardDetailHandler.js';
+import API from '../../api/api.js';
+import { changeNumberExpression } from '../../utils/utils.js';
 
 export const renderBoardDetail = (boardDetail, userId, isLiked) => {
+  const boardId = boardDetail.boardId;
+
   // 제목
   document.getElementById('board-detail-title').innerHTML = `
     <h1 class="ellipsis-26">${boardDetail.title}</h1>
@@ -37,15 +40,41 @@ export const renderBoardDetail = (boardDetail, userId, isLiked) => {
       <p>조회수</p>
     </div>
     <div>
-      <p>${boardDetail.commentCnt}</p>
+      <p id="board-comment-cnt">${boardDetail.commentCnt}</p>
       <p>댓글</p>
     </div>
   `;
 
   // 좋아요 초기 색상 지정 및 이벤트 추가
   const boardLikeBtnElement = document.getElementById('board-like-btn');
+  const boardLikeCntElement = document.getElementById('board-like-cnt');
+  let likeCnt = boardDetail.likeCnt;
+  let currentLiked = isLiked;
+
   boardLikeBtnElement.style.backgroundColor = isLiked ? '#ACA0EB' : '#D9D9D9';
-  boardLikeBtnElement.addEventListener('click', handleBoardLike);
+  boardLikeBtnElement.addEventListener('click', async e => {
+    e.preventDefault();
+
+    try {
+      currentLiked = !currentLiked;
+      likeCnt += currentLiked ? 1 : -1;
+
+      // UI 즉시 업데이트
+      boardLikeCntElement.innerHTML = changeNumberExpression(likeCnt);
+      boardLikeBtnElement.style.backgroundColor = currentLiked ? '#ACA0EB' : '#D9D9D9';
+
+      // 서버에 좋아요 토글 요청
+      await API.toggleBoardLike(userId, boardId);
+    } catch (err) {
+      console.error(err.message);
+
+      // 변경 전으로 되돌리기
+      currentLiked = !currentLiked;
+      likeCnt += currentLiked ? -1 : 1;
+      boardLikeCntElement.innerHTML = changeNumberExpression(likeCnt);
+      boardLikeBtnElement.style.backgroundColor = currentLiked ? '#ACA0EB' : '#D9D9D9';
+    }
+  });
 };
 
 /* 댓글 추가 버튼, textarea 렌더링 */
@@ -108,21 +137,26 @@ export const renderBoardComment = (boardComment, userId) => {
   // 버튼 컨테이너
   const isMyComment = boardComment.writerId === userId;
   const btnContainer = document.createElement('div');
-  const modifyButton = document.createElement('button');
-  const deleteButton = document.createElement('button');
+  const commentEditBtnElement = document.createElement('button');
+  const commentDeleteBtnElement = document.createElement('button');
 
   btnContainer.className = 'board-comments-btn-container';
-  modifyButton.textContent = '수정';
-  modifyButton.style.visibility = isMyComment ? 'visible' : 'hidden';
-  deleteButton.textContent = '삭제';
-  deleteButton.style.visibility = isMyComment ? 'visible' : 'hidden';
-  btnContainer.appendChild(modifyButton);
-  btnContainer.appendChild(deleteButton);
+  commentEditBtnElement.textContent = '수정';
+  commentEditBtnElement.style.visibility = isMyComment ? 'visible' : 'hidden';
+  commentDeleteBtnElement.textContent = '삭제';
+  commentDeleteBtnElement.style.visibility = isMyComment ? 'visible' : 'hidden';
+  btnContainer.appendChild(commentEditBtnElement);
+  btnContainer.appendChild(commentDeleteBtnElement);
 
   // 버튼에 이벤트 추가
   if (isMyComment) {
-    modifyButton.addEventListener('click', handleEditComment);
-    deleteButton.addEventListener('click', handleDeleteComment);
+    commentEditBtnElement.addEventListener('click', handleEditComment);
+    commentDeleteBtnElement.addEventListener('click', e => {
+      e.preventDefault();
+      const modalElement = document.getElementById('comment-modal');
+      modalElement.setAttribute('comment-id', boardComment.commentId);
+      modalElement.open();
+    });
   }
 
   metaContainer.appendChild(infoContainer);
@@ -148,4 +182,28 @@ export const renderBoardComment = (boardComment, userId) => {
 /* 게시글 코멘트 목록 렌더링 */
 export const renderBoardComments = (boardComments, userId) => {
   boardComments.forEach(boardComment => renderBoardComment(boardComment, userId));
+};
+
+/* 댓글 모달창 렌더링 */
+export const renderCommentModal = (userId, boardId) => {
+  const commentModalElement = document.getElementById('comment-modal');
+  commentModalElement.innerHTML = `
+    <div id="comment-modal-container" class="modal-container">
+      <div id="comment-modal-title" class="modal-title-container">
+        <h3>댓글을 삭제하시겠습니까?</h3>
+        <p>삭제한 내용은 복구할 수 없습니다.</p>
+      </div>
+      <div class="modal-btn-container">
+        <button class="modal-btn-cancel">취소</button>
+        <button class="modal-btn-ok">확인</button>
+      </div>
+    </div>
+  `;
+
+  commentModalElement.querySelector('.modal-btn-cancel').addEventListener('click', () => commentModalElement.close());
+  commentModalElement.querySelector('.modal-btn-ok').addEventListener('click', e => {
+    e.preventDefault();
+    const commentId = commentModalElement.getAttribute('comment-id');
+    handleDeleteComment(commentId, userId, boardId);
+  });
 };

@@ -17,7 +17,7 @@ const API = {
   },
 
   incrementBoardViewCount(boardId) {
-    fetch(`http://localhost:8000/api/v1/boards/${boardId}/views`, { method: 'POST' });
+    return fetch(`http://localhost:8000/api/v1/boards/${boardId}/views`, { method: 'POST' });
   },
 
   checkBoardLike(userId, boardId) {
@@ -42,7 +42,13 @@ const API = {
 
   modifyBoardComment(commentId, userId, boardId) {},
 
-  deleteBoardComment(commentId, userId, boardId) {},
+  deleteBoardComment(commentId, userId, boardId) {
+    return fetch(`http://localhost:8000/api/v1/boards/${boardId}/comments`, {
+      method: 'DELETE',
+      body: JSON.stringify({ userId, commentId }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+  },
 };
 
 export default API;

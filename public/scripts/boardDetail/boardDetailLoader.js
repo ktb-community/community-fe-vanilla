@@ -1,5 +1,5 @@
 import API from '../../api/api.js';
-import { renderBoardDetail, renderBoardComments, renderBoardCommentArea } from './boardDetailRenderer.js';
+import { renderBoardDetail, renderBoardComments, renderBoardCommentArea, renderCommentModal } from './boardDetailRenderer.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   // url 쿼리 파라미터에서 게시글 id 가져오기
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderBoardDetail(boardDetail, userId, checkBoardLike || false);
     renderBoardCommentArea(userId, boardId);
     renderBoardComments(boardComments, userId);
+    renderCommentModal(userId, boardId);
 
     // 조회수 증가 (비동기 호출)
     API.incrementBoardViewCount(boardId);
