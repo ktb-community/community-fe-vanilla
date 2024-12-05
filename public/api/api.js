@@ -31,6 +31,18 @@ const API = {
   fetchBoardComments(boardId) {
     return this.fetch(`/boards/${boardId}/comments`, { method: 'GET' });
   },
+
+  addBoardComment(content, userId, boardId) {
+    return this.fetch(`/boards/${boardId}/comments`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content, userId }),
+    });
+  },
+
+  modifyBoardComment(commentId, userId, boardId) {},
+
+  deleteBoardComment(commentId, userId, boardId) {},
 };
 
 export default API;

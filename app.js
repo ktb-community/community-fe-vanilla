@@ -15,11 +15,11 @@ const HTML_PATH = {
   BOARD_LIST: path.join(DIR_PATH.PAGES, 'boardList.html'),
   BOARD_DETAIL: path.join(DIR_PATH.PAGES, 'boardDetail.html'),
   BOARD_ADD: path.join(DIR_PATH.PAGES, 'boardAdd.html'),
-  BOARD_MODIFY: path.join(DIR_PATH.PAGES, 'boardModify.html'),
+  BOARD_EDIT: path.join(DIR_PATH.PAGES, 'boardEdit.html'),
   LOGIN: path.join(DIR_PATH.PAGES, 'login.html'),
   SIGNUP: path.join(DIR_PATH.PAGES, 'signup.html'),
-  USER_MODIFY: path.join(DIR_PATH.PAGES, 'userModify.html'),
-  PASSWORD_MODIFY: path.join(DIR_PATH.PAGES, 'passwordModify.html'),
+  USER_EDIT: path.join(DIR_PATH.PAGES, 'userEdit.html'),
+  PASSWORD_EDIT: path.join(DIR_PATH.PAGES, 'passwordEdit.html'),
   NOT_FOUND: path.join(DIR_PATH.PAGES, 'notFound.html'),
 };
 
@@ -37,11 +37,11 @@ app.get('/auth/signup', (req, res) => res.sendFile(HTML_PATH.SIGNUP));
 app.get('/boards', (req, res) => res.sendFile(HTML_PATH.BOARD_LIST));
 app.get('/boards/new', (req, res) => res.sendFile(HTML_PATH.BOARD_ADD));
 app.get('/boards/:id', (req, res) => res.sendFile(HTML_PATH.BOARD_DETAIL));
-app.get('/boards/:id/edit', (req, res) => res.sendFile(HTML_PATH.BOARD_MODIFY));
+app.get('/boards/:id/edit', (req, res) => res.sendFile(HTML_PATH.BOARD_EDIT));
 
 // 유저 관련 라우트
-app.get('/users/edit', (req, res) => res.sendFile(HTML_PATH.USER_MODIFY));
-app.get('/users/edit/password', (req, res) => res.sendFile(HTML_PATH.PASSWORD_MODIFY));
+app.get('/users/edit', (req, res) => res.sendFile(HTML_PATH.USER_EDIT));
+app.get('/users/edit/password', (req, res) => res.sendFile(HTML_PATH.PASSWORD_EDIT));
 
 // 404 처리
 app.use((req, res) => {

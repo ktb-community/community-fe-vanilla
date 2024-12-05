@@ -39,3 +39,10 @@ export const NICKNAME_HELPER_TEXT = Object.freeze({
 export const PROFILE_IMG_HELPER_TEXT = Object.freeze({
   EMPTY: '* 프로필 사진을 추가해주세요.',
 });
+
+export const ROUTE_PATH = Object.freeze({
+  LOGIN_PAGE: '/auth/login',
+  SIGNUP_PAGE: '/auth/signup',
+  BOARD_LIST_PAGE: '/boards',
+  BOARD_DETAIL_PAGE: '/boards/',
+});
