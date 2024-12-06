@@ -1,4 +1,4 @@
-import { handleAddComment, handleEditComment, handleDeleteComment } from './boardDetailHandler.js';
+import { handleAddComment, handleEditComment, handleDeleteComment } from '../handler/boardDetailHandler.js';
 import API from '../../api/api.js';
 import { changeNumberExpression } from '../../utils/utils.js';
 
@@ -13,21 +13,44 @@ export const renderBoardDetail = (boardDetail, userId, isLiked) => {
   // 메타 정보
   document.getElementById('board-detail-info-container').innerHTML = `
     <div id="board-detail-info">
-      <div id="avatar-div" class="avatar" style="background-image: url(${boardDetail.writerProfileImg}); background-size: cover;"></div>
+      <div id="avatar-div" class="avatar"></div>
       <p id="board-detail-info-writer">${boardDetail.writerNickname}</p>
       <p id="board-detail-info-time">${boardDetail.createdAt}</p>
     </div>
+    
+    <div>
+      <button id="board-detail-edit-btn" style="visibility: hidden;">수정</button>
+      <button id="board-detail-delete-btn" style="visibility: hidden;">삭제</button>
+    </div>
   `;
+
+  const boardDetailEditBtn = document.getElementById('board-detail-edit-btn');
+  const boardDetailDeleteBtn = document.getElementById('board-detail-delete-btn');
+
+  if (userId === boardDetail.writerId) {
+    boardDetailEditBtn.style.visibility = 'visible';
+    boardDetailDeleteBtn.style.visibility = 'visible';
+  }
+
+  const avatarDiv = document.getElementById('avatar-div');
+  const profileImgUrl = `http://localhost:8000/${boardDetail.writerProfileImg}`;
+  avatarDiv.style.backgroundImage = `url(${profileImgUrl})`;
+  avatarDiv.style.backgroundSize = 'cover';
 
   // 본문
   document.getElementById('board-detail-content-container').innerHTML = `
     <div id="board-detail-img-container">
-      <img src="${boardDetail.boardImg || ''}" alt="" />
+      <img alt="" />
     </div>
     <div id="board-detail-content">
       <p>${boardDetail.content}</p>
     </div>
   `;
+
+  const boardImg = document.querySelector('#board-detail-img-container > img');
+  if (boardImg && boardDetail.boardImg) {
+    boardImg.src = `http://localhost:8000/${boardDetail.boardImg}`;
+  }
 
   // 좋아요, 조회수, 댓글수
   document.getElementById('board-cnt-container').innerHTML = `
@@ -119,7 +142,7 @@ export const renderBoardComment = (boardComment, userId, boardId) => {
   // 아바타 설정
   const avatar = document.createElement('div');
   avatar.className = 'avatar';
-  avatar.style.backgroundImage = `url(${boardComment.writerProfileImg})`;
+  avatar.style.backgroundImage = `url(http://localhost:8000/${boardComment.writerProfileImg})`;
   avatar.style.backgroundSize = 'cover';
   avatar.style.backgroundRepeat = 'no-repeat';
   avatar.style.backgroundPosition = 'center';
@@ -154,17 +177,17 @@ export const renderBoardComment = (boardComment, userId, boardId) => {
 
   // 버튼에 이벤트 추가
   if (isMyComment) {
+    const commentId = parseInt(commentContainer.getAttribute('id'), 10) || null;
+
     commentEditBtnElement.addEventListener('click', e => {
       e.preventDefault();
-      const commentId = commentContainer.getAttribute('id');
       handleEditComment(e.target.parentNode, commentId, boardId, userId);
     });
 
     commentDeleteBtnElement.addEventListener('click', e => {
       e.preventDefault();
       const modalElement = document.getElementById('comment-modal');
-      const commentId = commentContainer.getAttribute('id');
-      modalElement.setAttribute('comment-id', commentId);
+      modalElement.setAttribute('comment-id', commentId.toString());
       modalElement.open();
     });
   }

@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="../css/common.css" />
 
     <!-- SCRIPT -->
-    <script src="../scripts/common/routeIfLogin.js"></script>
+    <script src="../scripts/handler/privateRouteHandler.js"></script>
     <script src="../components/header.js"></script>
-    <script src="../scripts/render/loadBoardAddPage.js"></script>
+    <script type="module" src="../scripts/loader/boardAddLoader.js"></script>
   </head>
 
   <body id="body">
@@ -31,7 +31,7 @@
           <!-- 제목 추가란 -->
           <div>
             <p class="text-highlight">제목*</p>
-            <input type="text" class="input" placeholder="제목을 입력해주세요. (최대 26글자)" />
+            <input type="text" id="board-add-title" class="input" placeholder="제목을 입력해주세요. (최대 26글자)" />
             <p id="board-add-title-helper-text" class="helper-text"></p>
           </div>
 

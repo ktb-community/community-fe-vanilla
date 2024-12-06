@@ -31,7 +31,7 @@ const renderBoardList = boardList => {
 
     // 아바타 이미지 추가
     const avatarDiv = boardDiv.querySelector('#avatar-div');
-    avatarDiv.style.backgroundImage = `url(${board.writerProfileImg})`;
+    avatarDiv.style.backgroundImage = `url(http://localhost:8000/${board.writerProfileImg})`;
     avatarDiv.style.backgroundSize = 'cover';
     avatarDiv.style.backgroundPosition = 'center';
 

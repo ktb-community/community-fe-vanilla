@@ -1,6 +1,6 @@
 import API from '../../api/api.js';
 import { RES_STATUS } from '../../utils/const.js';
-import { renderBoardComment } from './boardDetailRenderer.js';
+import { renderBoardComment } from '../render/boardDetailRenderer.js';
 
 /* 댓글 추가 (낙관적 업데이트) */
 export const handleAddComment = (userId, boardId) => {
@@ -139,7 +139,7 @@ export const handleDeleteComment = (commentId, userId, boardId) => {
     modalElement.close();
     commentCntElement.innerText = (parseInt(commentCntElement.innerText, 10) - 1).toString();
 
-    API.deleteBoardComment(commentId, userId, boardId).catch(err => {
+    API.deleteBoardComment(parseInt(commentId, 10) || null, userId, boardId).catch(err => {
       console.error(err.message);
 
       // 댓글 카운트 개수 복구
