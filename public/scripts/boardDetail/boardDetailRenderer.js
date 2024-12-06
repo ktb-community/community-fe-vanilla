@@ -97,13 +97,17 @@ export const renderBoardCommentArea = (userId, boardId) => {
 };
 
 /* 단건 게시글 코멘트 렌더링 */
-export const renderBoardComment = (boardComment, userId) => {
+export const renderBoardComment = (boardComment, userId, boardId) => {
   const boardCommentContainerElement = document.getElementById('board-comments-container');
 
   // 댓글 컨테이너 생성
   const commentContainer = document.createElement('div');
   commentContainer.className = 'board-comments-info-container';
   commentContainer.setAttribute('id', boardComment.commentId); // 낙관적 업데이트를 위한 id 지정
+
+  if (commentContainer.getAttribute('id').startsWith('temp-')) {
+    commentContainer.style.backgroundColor = 'lightgray';
+  }
 
   // 댓글 메타 정보 컨테이너
   const metaContainer = document.createElement('div');
@@ -150,11 +154,17 @@ export const renderBoardComment = (boardComment, userId) => {
 
   // 버튼에 이벤트 추가
   if (isMyComment) {
-    commentEditBtnElement.addEventListener('click', handleEditComment);
+    commentEditBtnElement.addEventListener('click', e => {
+      e.preventDefault();
+      const commentId = commentContainer.getAttribute('id');
+      handleEditComment(e.target.parentNode, commentId, boardId, userId);
+    });
+
     commentDeleteBtnElement.addEventListener('click', e => {
       e.preventDefault();
       const modalElement = document.getElementById('comment-modal');
-      modalElement.setAttribute('comment-id', boardComment.commentId);
+      const commentId = commentContainer.getAttribute('id');
+      modalElement.setAttribute('comment-id', commentId);
       modalElement.open();
     });
   }
@@ -180,8 +190,8 @@ export const renderBoardComment = (boardComment, userId) => {
 };
 
 /* 게시글 코멘트 목록 렌더링 */
-export const renderBoardComments = (boardComments, userId) => {
-  boardComments.forEach(boardComment => renderBoardComment(boardComment, userId));
+export const renderBoardComments = (boardComments, userId, boardId) => {
+  boardComments.forEach(boardComment => renderBoardComment(boardComment, userId, boardId));
 };
 
 /* 댓글 모달창 렌더링 */

@@ -22,7 +22,7 @@ export const handleAddComment = (userId, boardId) => {
   };
 
   // 선 렌더링 이후 버튼 상태 초기화
-  renderBoardComment(optimisticComment, user.id);
+  renderBoardComment(optimisticComment, user.id, boardId);
 
   commentAreaElement.value = '';
   commentAddBtnElement.style.backgroundColor = '#ACA0EB';
@@ -39,6 +39,10 @@ export const handleAddComment = (userId, boardId) => {
       // 성공했으면, 댓글 등록 시간 업데이트
       if (json.status === RES_STATUS.SUCCESS && commentTimeElement) {
         commentTimeElement.innerHTML = json.data.createdAt;
+        const newCommentContainer = document.getElementById('board-comments-container').lastElementChild;
+        if (newCommentContainer) {
+          newCommentContainer.setAttribute('id', json.commentId);
+        }
       }
     })
     .catch(err => {
@@ -55,7 +59,70 @@ export const handleAddComment = (userId, boardId) => {
 };
 
 /* 댓글 수정 (낙관적 업데이트) */
-export const handleEditComment = () => {};
+export const handleEditComment = (btnGroupContainer, commentId, boardId, userId) => {
+  // 기존 버튼 숨기기
+  const editBtnElement = btnGroupContainer.children[0];
+  const deleteBtnElement = btnGroupContainer.children[1];
+  editBtnElement.remove();
+  deleteBtnElement.remove();
+
+  // 댓글 내용 가져오기
+  const commentInfoContainer = btnGroupContainer.parentNode;
+  const commentTotalContainer = commentInfoContainer.parentNode;
+  const commentContainer = commentTotalContainer.querySelector('.board-comments-comment-container');
+  const commentParagraph = commentContainer.querySelector('p');
+  const originalComment = commentParagraph.textContent;
+
+  // input 창 생성 및 기존 댓글로 내용 채우기
+  const inputField = document.createElement('input');
+  inputField.type = 'text';
+  inputField.value = originalComment;
+  inputField.classList.add('input');
+  commentContainer.replaceChild(inputField, commentParagraph);
+
+  // 새로운 버튼 추가 (수정, 취소)
+  const checkBtnElement = document.createElement('button');
+  const cancelBtnElement = document.createElement('button');
+  checkBtnElement.textContent = '완료';
+  cancelBtnElement.textContent = '취소';
+  checkBtnElement.style.visibility = 'visible';
+  cancelBtnElement.style.visibility = 'visible';
+  btnGroupContainer.appendChild(checkBtnElement);
+  btnGroupContainer.appendChild(cancelBtnElement);
+
+  // 완료 버튼 핸들러
+  checkBtnElement.addEventListener('click', e => {
+    e.preventDefault();
+
+    // UI 먼저 업데이트
+    const modifiedComment = inputField.value;
+    commentParagraph.textContent = modifiedComment;
+    commentContainer.replaceChild(commentParagraph, inputField);
+
+    API.modifyBoardComment(commentId, userId, boardId, modifiedComment)
+      .catch(err => {
+        // 원래 댓글로 원상 복귀
+        commentParagraph.innerHTML = originalComment;
+
+        alert('댓글 변경에 실패했습니다.');
+      })
+      .finally(() => {
+        // 버튼 복구
+        btnGroupContainer.replaceChild(editBtnElement, checkBtnElement);
+        btnGroupContainer.replaceChild(deleteBtnElement, cancelBtnElement);
+      });
+  });
+
+  // 취소 버튼 핸들러
+  cancelBtnElement.addEventListener('click', e => {
+    e.preventDefault();
+
+    // 기존으로 엘리먼트 복구
+    commentContainer.replaceChild(commentParagraph, inputField);
+    btnGroupContainer.replaceChild(editBtnElement, checkBtnElement);
+    btnGroupContainer.replaceChild(deleteBtnElement, cancelBtnElement);
+  });
+};
 
 /* 댓글 삭제 */
 export const handleDeleteComment = (commentId, userId, boardId) => {
@@ -65,21 +132,24 @@ export const handleDeleteComment = (commentId, userId, boardId) => {
   const commentIndex = comments.findIndex(comment => comment.getAttribute('id') === commentId);
 
   if (commentIndex !== -1) {
+    const removedComment = comments[commentIndex];
+
+    // 댓글 삭제 (UI 즉시 업데이트)
     comments[commentIndex].remove();
     modalElement.close();
     commentCntElement.innerText = (parseInt(commentCntElement.innerText, 10) - 1).toString();
+
+    API.deleteBoardComment(commentId, userId, boardId).catch(err => {
+      console.error(err.message);
+
+      // 댓글 카운트 개수 복구
+      commentCntElement.innerText = (parseInt(commentCntElement.innerText, 10) + 1).toString();
+
+      // 삭제된 댓글을 복구하여 DOM에 다시 추가
+      const parentElement = document.querySelector('.board-comments-container'); // 댓글들이 포함된 부모 요소
+      if (parentElement && removedComment) {
+        parentElement.insertBefore(removedComment, parentElement.children[commentIndex]);
+      }
+    });
   }
-
-  API.deleteBoardComment(commentId, userId, boardId).catch(err => {
-    console.error(err.message);
-
-    // 댓글 카운트 개수 복구
-    commentCntElement.innerText = (parseInt(commentCntElement.innerText, 10) + 1).toString();
-
-    // 삭제된 댓글을 복구하여 DOM에 다시 추가
-    const parentElement = document.querySelector('.board-comments-container'); // 댓글들이 포함된 부모 요소
-    if (parentElement && removedComment) {
-      parentElement.insertBefore(removedComment, parentElement.children[commentIndex]);
-    }
-  });
 };

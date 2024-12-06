@@ -4,7 +4,7 @@ const API = {
   async fetch(endpoint, options = {}) {
     const res = await fetch(`${this.BASE_URL}${endpoint}`, options);
     if (res.ok) return res.json();
-    else console.error(`Error! ${this.BASE_URL}${endpoint} ${res.status}`);
+    else return Promise.reject(res);
   },
 
   /* 게시글 관련 API */
@@ -40,10 +40,16 @@ const API = {
     });
   },
 
-  modifyBoardComment(commentId, userId, boardId) {},
+  modifyBoardComment(commentId, userId, boardId, comment) {
+    return this.fetch(`/boards/${boardId}/comments`, {
+      method: 'PATCH',
+      body: JSON.stringify({ userId, commentId, comment }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+  },
 
   deleteBoardComment(commentId, userId, boardId) {
-    return fetch(`http://localhost:8000/api/v1/boards/${boardId}/comments`, {
+    return this.fetch(`/boards/${boardId}/comments`, {
       method: 'DELETE',
       body: JSON.stringify({ userId, commentId }),
       headers: { 'Content-Type': 'application/json' },

@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // url 쿼리 파라미터에서 게시글 id 가져오기
   const url = new URL(window.location.href);
   const segments = url.pathname.split('/');
-  const boardId = segments[2];
+  const boardId = parseInt(segments[2], 10) || null;
   const userId = JSON.parse(localStorage.getItem('user')).id;
 
   if (!boardId) {
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 초기 데이터 렌더링
     renderBoardDetail(boardDetail, userId, checkBoardLike || false);
     renderBoardCommentArea(userId, boardId);
-    renderBoardComments(boardComments, userId);
+    renderBoardComments(boardComments, userId, boardId);
     renderCommentModal(userId, boardId);
 
     // 조회수 증가 (비동기 호출)
