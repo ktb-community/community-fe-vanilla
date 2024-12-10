@@ -1,3 +1,5 @@
+import API from '../../api/api.js';
+
 export const handleInputEvents = userId => {
   const titleInput = document.getElementById('board-add-title');
   const contentInput = document.getElementById('board-add-content');
@@ -44,25 +46,11 @@ export const handleInputEvents = userId => {
     formData.append('boardImg', imageInput.files[0]);
 
     // 서버로 업로드 요청
-    uploadToServer(formData);
+    API.addBoard(formData)
+      .then(() => (window.location.href = '/boards'))
+      .catch(err => {
+        console.error(err.message);
+        alert('게시글 등록에 실패했습니다. 다시 시도해주세요.');
+      });
   });
-};
-
-// 서버 업로드 요청
-const uploadToServer = async formData => {
-  try {
-    const response = await fetch('http://localhost:8000/api/v1/boards', {
-      method: 'POST',
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error(`서버 업로드 실패: ${response.status}`);
-    }
-
-    window.location.href = '/boards';
-  } catch (error) {
-    console.error(error);
-    alert('게시글 등록에 실패했습니다. 다시 시도해주세요.');
-  }
 };

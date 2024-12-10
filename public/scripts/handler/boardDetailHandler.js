@@ -153,3 +153,17 @@ export const handleDeleteComment = (commentId, userId, boardId) => {
     });
   }
 };
+
+/* 게시글 삭제 */
+export const handleDeleteBoard = (userId, boardId) => {
+  console.log(userId, boardId);
+
+  API.deleteBoard(userId, boardId)
+    .then(() => {
+      alert('게시글이 삭제되었습니다.');
+      window.location.href = '/boards';
+    })
+    .catch(() => {
+      alert('게시글 삭제 중 오류가 발생했습니다.');
+    });
+};

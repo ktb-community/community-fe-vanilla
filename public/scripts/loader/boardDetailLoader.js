@@ -1,14 +1,20 @@
 import API from '../../api/api.js';
-import { renderBoardDetail, renderBoardComments, renderBoardCommentArea, renderCommentModal } from '../render/boardDetailRenderer.js';
+import {
+  renderBoardDetail,
+  renderBoardComments,
+  renderBoardCommentArea,
+  renderCommentModal,
+  renderBoardModal,
+} from '../render/boardDetailRenderer.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   // url 쿼리 파라미터에서 게시글 id 가져오기
   const url = new URL(window.location.href);
   const segments = url.pathname.split('/');
   const boardId = parseInt(segments[2], 10) || null;
-  const userId = JSON.parse(localStorage.getItem('user')).id;
+  const userId = JSON.parse(localStorage.getItem('user')).id || null;
 
-  if (!boardId) {
+  if (!boardId || !userId) {
     alert('비정상적인 접근입니다.');
     window.location.href = '/boards';
     return;
@@ -25,6 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderBoardCommentArea(userId, boardId);
     renderBoardComments(boardComments, userId, boardId);
     renderCommentModal(userId, boardId);
+    renderBoardModal(userId);
 
     // 조회수 증가 (비동기 호출)
     API.incrementBoardViewCount(boardId);

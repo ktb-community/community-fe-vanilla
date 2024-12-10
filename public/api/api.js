@@ -16,6 +16,28 @@ const API = {
     return this.fetch(`/boards?offset=${offset}&limit=${limit}`);
   },
 
+  addBoard(formData) {
+    return this.fetch(`/boards`, {
+      method: 'POST',
+      body: formData,
+    });
+  },
+
+  editBoard(formData, boardId) {
+    return this.fetch(`/boards/${boardId}`, {
+      method: 'PUT',
+      body: formData,
+    });
+  },
+
+  deleteBoard(userId, boardId) {
+    return this.fetch(`/boards/${boardId}`, {
+      method: 'DELETE',
+      body: JSON.stringify({ userId }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+  },
+
   incrementBoardViewCount(boardId) {
     return fetch(`http://localhost:8000/api/v1/boards/${boardId}/views`, { method: 'POST' });
   },

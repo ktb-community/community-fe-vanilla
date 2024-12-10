@@ -1,6 +1,6 @@
-import { handleAddComment, handleEditComment, handleDeleteComment } from '../handler/boardDetailHandler.js';
-import API from '../../api/api.js';
+import { handleAddComment, handleEditComment, handleDeleteComment, handleDeleteBoard } from '../handler/boardDetailHandler.js';
 import { changeNumberExpression } from '../../utils/utils.js';
+import API from '../../api/api.js';
 
 export const renderBoardDetail = (boardDetail, userId, isLiked) => {
   const boardId = boardDetail.boardId;
@@ -18,7 +18,7 @@ export const renderBoardDetail = (boardDetail, userId, isLiked) => {
       <p id="board-detail-info-time">${boardDetail.createdAt}</p>
     </div>
     
-    <div>
+    <div class="board-btn-container">
       <button id="board-detail-edit-btn" style="visibility: hidden;">수정</button>
       <button id="board-detail-delete-btn" style="visibility: hidden;">삭제</button>
     </div>
@@ -30,6 +30,18 @@ export const renderBoardDetail = (boardDetail, userId, isLiked) => {
   if (userId === boardDetail.writerId) {
     boardDetailEditBtn.style.visibility = 'visible';
     boardDetailDeleteBtn.style.visibility = 'visible';
+
+    boardDetailEditBtn.addEventListener('click', e => {
+      e.preventDefault();
+      window.location.href = `/boards/${boardId}/edit`;
+    });
+
+    boardDetailDeleteBtn.addEventListener('click', e => {
+      e.preventDefault();
+      const modalElement = document.getElementById('board-modal');
+      modalElement.setAttribute('board-id', boardId.toString());
+      modalElement.open();
+    });
   }
 
   const avatarDiv = document.getElementById('avatar-div');
@@ -238,5 +250,29 @@ export const renderCommentModal = (userId, boardId) => {
     e.preventDefault();
     const commentId = commentModalElement.getAttribute('comment-id');
     handleDeleteComment(commentId, userId, boardId);
+  });
+};
+
+/* 게시글 모달창 렌더링 */
+export const renderBoardModal = userId => {
+  const boardModalElement = document.getElementById('board-modal');
+  boardModalElement.innerHTML = `
+    <div id="board-modal-container" class="modal-container">
+      <div id="board-modal-title" class="modal-title-container">
+        <h3>게시글을 삭제하시겠습니까?</h3>
+        <p>삭제한 내용은 복구할 수 없습니다.</p>
+      </div>
+      <div class="modal-btn-container">
+        <button class="modal-btn-cancel">취소</button>
+        <button class="modal-btn-ok">확인</button>
+      </div>
+    </div>
+  `;
+
+  boardModalElement.querySelector('.modal-btn-cancel').addEventListener('click', () => boardModalElement.close());
+  boardModalElement.querySelector('.modal-btn-ok').addEventListener('click', e => {
+    e.preventDefault();
+    const boardId = parseInt(boardModalElement.getAttribute('board-id'), 10) || null;
+    handleDeleteBoard(userId, boardId);
   });
 };
