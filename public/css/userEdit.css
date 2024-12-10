@@ -63,3 +63,11 @@
     background-color: #aca0eb;
     color: white;
 }
+
+#modal-password-input {
+    width: 160px;
+    border-color: red;
+    border-radius: 8px;
+    padding: 4px 8px;
+    margin-bottom: 16px;
+}

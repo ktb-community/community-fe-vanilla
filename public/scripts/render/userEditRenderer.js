@@ -1,6 +1,5 @@
 import { includeSpacing, isValidNickname } from '../../utils/utils.js';
-import { NICKNAME_HELPER_TEXT, RES_STATUS } from '../../utils/const.js';
-import API from '../../api/api.js';
+import { NICKNAME_HELPER_TEXT, PASSWORD_HELPER_TEXT, RES_STATUS } from '../../utils/const.js';
 
 export const renderUserEdit = user => {
   const { profile: profileImg, id: userId, nickname, email } = user;
@@ -15,6 +14,63 @@ export const renderUserEdit = user => {
   const editSubmitBtnElement = document.querySelector('#user-modify-btn > input[type="submit"]');
   const withdrawalBtnElement = document.querySelector('#user-modify-btn > a');
   const editDoneBtnElement = document.getElementById('user-modify-done');
+  const userDeleteModalElement = document.getElementById('user-delete-modal');
+
+  // 모달 렌더링
+  userDeleteModalElement.innerHTML += `
+    <div class="modal-container">
+      <div class="modal-title-container">
+        <h3>계정을 삭제하시겠습니까?</h3>
+        <p>삭제한 계정은 복구할 수 없습니다.</p>
+      </div>
+      <div>
+        <input type="password" id="modal-password-input" placeholder="비밀번호를 입력하세요.">
+      </div>
+      <div class="modal-btn-container">
+        <button class="modal-btn-cancel">취소</button>
+        <button class="modal-btn-ok">확인</button>
+      </div>
+    </div>
+  `;
+
+  const passwordInputElement = document.querySelector('#modal-password-input');
+
+  userDeleteModalElement.querySelector('.modal-btn-cancel').addEventListener('click', e => {
+    e.preventDefault();
+    userDeleteModalElement.close();
+  });
+
+  userDeleteModalElement.querySelector('.modal-btn-ok').addEventListener('click', async e => {
+    e.preventDefault();
+    const inputPassword = passwordInputElement.value.trim();
+
+    const res = await fetch(`http://localhost:8000/api/v1/users/${userId}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        password: inputPassword,
+      }),
+    });
+
+    const json = await res.json();
+
+    try {
+      if (res.status === 400) {
+        if (json.status === RES_STATUS.PASSWORD_NOT_MATCH) {
+          passwordInputElement.focus();
+          alert(PASSWORD_HELPER_TEXT.NOT_EQUAL);
+        }
+      } else if (res.status === 200) {
+        alert('회원탈퇴가 완료되었습니다.');
+        localStorage.removeItem('user');
+        window.location.href = '/auth/login';
+      }
+
+      throw new Error(json.message);
+    } catch (err) {
+      console.error(err);
+    }
+  });
 
   // 수정하기 버튼 초기에 disabled
   editSubmitBtnElement.disabled = true;
@@ -103,6 +159,7 @@ export const renderUserEdit = user => {
       } else if (res.status === 200) {
         const user = JSON.stringify(json.data);
         localStorage.setItem('user', user);
+        alert('수정 완료');
         window.location.reload();
       }
 
@@ -116,6 +173,7 @@ export const renderUserEdit = user => {
   withdrawalBtnElement.addEventListener('click', e => {
     e.preventDefault();
     console.log('zz');
+    userDeleteModalElement.open();
   });
 
   // 수정완료 버튼 이벤트 추가

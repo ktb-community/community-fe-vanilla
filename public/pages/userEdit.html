@@ -12,12 +12,13 @@
     <!-- SCRIPT -->
     <script src="/scripts/handler/privateRouteHandler.js"></script>
     <script defer src="/components/header.js"></script>
+    <script defer src="/components/modal.js"></script>
     <script defer type="module" src="/scripts/loader/userEditLoader.js"></script>
   </head>
 
   <body id="body">
     <custom-header text="아무 말 대잔치" show-back="true" show-avatar="true"></custom-header>
-
+    <custom-modal id="user-delete-modal" class="warning-modal"></custom-modal>
     <main id="user-edit-main">
       <section style="text-align: center">
         <header>

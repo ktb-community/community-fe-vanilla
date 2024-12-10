@@ -10,11 +10,13 @@ export const RES_STATUS = Object.freeze({
   /* SIGNUP */
   EMAIL_DUPLICATED: 'Email already exists',
   NICKNAME_DUPLICATED: 'Nickname already exists',
+  SAME_PASSWORD: 'Password must not be same',
 });
 
 export const EMAIL_HELPER_TEXT = Object.freeze({
   EMPTY: '* 이메일을 입력해주세요.',
   DUPLICATED: '* 중복된 이메일입니다.',
+  NOT_FOUND: '* 가입되지 않은 이메일입니다.',
   INVALIDATED: '* 올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)',
 });
 

@@ -77,15 +77,6 @@ const API = {
       headers: { 'Content-Type': 'application/json' },
     });
   },
-
-  /* 유저 관련 API */
-
-  deleteUser(userId) {
-    return this.fetch(`/users/${userId}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-    });
-  },
 };
 
 export default API;

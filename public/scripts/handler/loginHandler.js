@@ -30,7 +30,7 @@ formElement.addEventListener('submit', async e => {
     /* 요청 실패 (400) */
     if (res.status === 400) {
       if (json.status === RES_STATUS.EMAIL_NOT_FOUND) {
-        emailHelperTextElement.textContent = EMAIL_HELPER_TEXT.DUPLICATED;
+        emailHelperTextElement.textContent = EMAIL_HELPER_TEXT.NOT_FOUND;
         alert(json.message);
         emailElement.focus();
       } else if (json.status === RES_STATUS.PASSWORD_NOT_MATCH) {

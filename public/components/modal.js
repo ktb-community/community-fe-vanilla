@@ -27,10 +27,9 @@ class Modal extends HTMLElement {
           padding: 0 20px 20px 20px;
           border-radius: 25px;
           max-width: 400px;
-          max-height: 150px;
+          height: fit-content;
           z-index: 10;
           width: 100%;
-          height: 100%;
           box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
           border: 1px solid #ccc;
         }

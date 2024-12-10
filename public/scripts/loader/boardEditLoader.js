@@ -20,5 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   try {
     renderBoardEdit(userId, boardId);
-  } catch (err) {}
+  } catch (err) {
+    console.error(err.message);
+  }
 });
