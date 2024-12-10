@@ -178,6 +178,11 @@ class Header extends HTMLElement {
 
     // 텍스트 설정
     textElement.textContent = text;
+    textElement.style.cursor = 'pointer';
+
+    textElement.addEventListener('click', e => {
+      window.location.href = `/boards`;
+    });
 
     // 아바타가 설정되어 있으면 배경 설정
     if (avatarDropdown.classList.contains('visible')) {

@@ -6,20 +6,20 @@
     <title>KakaoTech Cloud Native in JEJU 2기 커뮤니티</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/userModify.css" />
-    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="/css/userEdit.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+
     <!-- SCRIPT -->
+    <script src="/scripts/handler/privateRouteHandler.js"></script>
+    <script defer src="/components/header.js"></script>
+    <script defer type="module" src="/scripts/loader/userEditLoader.js"></script>
   </head>
 
   <body id="body">
-    <header id="header">
-      <input type="button" class="prev-btn" value="&lt;" />
-      <p>아무 말 대잔치</p>
-      <div class="avatar"></div>
-    </header>
+    <custom-header text="아무 말 대잔치" show-back="true" show-avatar="true"></custom-header>
 
-    <article id="article">
-      <section>
+    <main id="user-edit-main">
+      <section style="text-align: center">
         <header>
           <h2>회원정보수정</h2>
         </header>
@@ -28,29 +28,34 @@
       <section id="user-modify-section">
         <div>
           <p class="text-highlight">프로필 사진*</p>
-          <div id="user-modify-img" class="avatar-big"></div>
+          <label id="user-modify-img" class="file-label" for="file-upload">
+            <input id="file-upload" type="file" accept="image/*" />
+            <div id="file-upload-text-container">
+              <p>변경</p>
+            </div>
+          </label>
         </div>
 
         <form id="user-modify-form">
           <div>
-            <p class="text-highlight" for="email">이메일</p>
-            <p>rivercity310@github.com</p>
+            <p class="text-highlight">이메일</p>
+            <p id="user-email-text"></p>
           </div>
 
-          <label id="user-modify-nickname-label" for="nickname"
-            >닉네임
-            <input id="nickname" class="input" type="text" placeholder="luis.hwang" />
-            <span class="helper-text">*helper text</span>
-          </label>
+          <div>
+            <p class="text-highlight">닉네임</p>
+            <input id="user-modify-nickname-input" class="input" type="text" />
+            <p id="user-modify-nickname-helper-text" class="helper-text"></p>
+          </div>
 
-          <div id="user-modify-btn-1">
+          <div id="user-modify-btn">
             <input type="submit" value="수정하기" />
             <a class="link" href="">회원 탈퇴</a>
           </div>
-
-          <input type="submit" value="수정완료" />
         </form>
+
+        <input id="user-modify-done" type="button" class="submit-btn" style="width: 160px; margin: 36px auto auto" value="수정완료" />
       </section>
-    </article>
+    </main>
   </body>
 </html>
