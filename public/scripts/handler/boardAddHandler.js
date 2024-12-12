@@ -7,7 +7,16 @@ export const handleInputEvents = userId => {
   const submitButton = document.querySelector('.submit-btn');
   const titleHelperText = document.getElementById('board-add-title-helper-text');
 
-  toggleSubmitButton();
+  // 제출 버튼 활성화 여부 확인
+  const toggleSubmitButton = () => {
+    const isTitleValid = titleInput.value.trim().length > 0;
+    const isContentValid = contentInput.value.trim().length > 0;
+    const isImageSelected = imageInput.files.length > 0;
+    const disabled = !(isTitleValid && isContentValid && isImageSelected);
+    submitButton.disabled = disabled;
+    submitButton.style.backgroundColor = disabled ? '#D9D9D9' : '#ACA0EB';
+    submitButton.style.cursor = disabled ? 'not-allowed' : 'pointer';
+  };
 
   // 제목 입력 제한 (최대 26자)
   titleInput.addEventListener('input', () => {
@@ -26,17 +35,6 @@ export const handleInputEvents = userId => {
   contentInput.addEventListener('input', toggleSubmitButton);
   imageInput.addEventListener('change', toggleSubmitButton);
 
-  // 제출 버튼 활성화 여부 확인
-  function toggleSubmitButton() {
-    const isTitleValid = titleInput.value.trim().length > 0;
-    const isContentValid = contentInput.value.trim().length > 0;
-    const isImageSelected = imageInput.files.length > 0;
-    const disabled = !(isTitleValid && isContentValid && isImageSelected);
-    submitButton.disabled = disabled;
-    submitButton.style.backgroundColor = disabled ? '#D9D9D9' : '#ACA0EB';
-    submitButton.style.cursor = disabled ? 'not-allowed' : 'pointer';
-  }
-
   // 제출 버튼 클릭 이벤트
   submitButton.addEventListener('click', () => {
     const formData = new FormData();
@@ -53,4 +51,7 @@ export const handleInputEvents = userId => {
         alert('게시글 등록에 실패했습니다. 다시 시도해주세요.');
       });
   });
+
+  // 초기 버튼 상태 지정
+  toggleSubmitButton();
 };

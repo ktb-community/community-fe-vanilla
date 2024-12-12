@@ -1,3 +1,5 @@
+import API from '../api/api.js';
+
 class Header extends HTMLElement {
   constructor() {
     super();
@@ -147,6 +149,7 @@ class Header extends HTMLElement {
     logoutBtnElement.addEventListener('click', e => {
       localStorage.removeItem('user');
       window.location.href = '/auth/login';
+      API.sendLogout();
     });
   }
 
