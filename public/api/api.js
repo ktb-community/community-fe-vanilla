@@ -3,8 +3,18 @@ const API = {
 
   async fetch(endpoint, options = {}) {
     const res = await fetch(`${this.BASE_URL}${endpoint}`, options);
-    if (res.ok) return res.json();
-    else return Promise.reject(res);
+    if (res.ok) {
+      return res.json();
+    }
+
+    if (res.status === 403) {
+      alert('세션이 만료되었습니다. 로그인 페이지로 이동합니다.');
+      localStorage.removeItem('user');
+      window.location.href = '/auth/login';
+      return Promise.reject();
+    }
+
+    return Promise.reject(res);
   },
 
   /* 게시글 관련 API */
