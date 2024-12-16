@@ -1,4 +1,5 @@
 import API from '../api/api.js';
+import { BASE_URL } from '../utils/const.js';
 
 class Header extends HTMLElement {
   constructor() {
@@ -190,7 +191,7 @@ class Header extends HTMLElement {
     // 아바타가 설정되어 있으면 배경 설정
     if (avatarDropdown.classList.contains('visible')) {
       const user = JSON.parse(localStorage.getItem('user'));
-      avatarDropdownBtn.style.backgroundImage = `url(http://localhost:8000/${user.profile})`;
+      avatarDropdownBtn.style.backgroundImage = `url(${BASE_URL}/${user.profile})`;
       avatarDropdownBtn.style.backgroundPosition = 'center center';
       avatarDropdownBtn.style.backgroundSize = 'cover';
       avatarDropdownBtn.style.backgroundRepeat = 'no-repeat';

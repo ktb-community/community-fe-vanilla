@@ -1,6 +1,6 @@
-import { EMAIL_HELPER_TEXT, PASSWORD_HELPER_TEXT, RES_STATUS } from '../../utils/const.js';
+import { EMAIL_HELPER_TEXT, PASSWORD_HELPER_TEXT, RES_STATUS, BASE_URL } from '../../utils/const.js';
 
-const REQUEST_URL = 'http://localhost:8000/api/v1';
+const REQUEST_URL = `${BASE_URL}/api/v1`;
 const formElement = document.getElementById('login-form');
 const emailElement = document.getElementById('email');
 const passwordElement = document.getElementById('password');

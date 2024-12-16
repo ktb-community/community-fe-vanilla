@@ -1,5 +1,5 @@
 import { includeSpacing, isValidNickname } from '../../utils/utils.js';
-import { NICKNAME_HELPER_TEXT, PASSWORD_HELPER_TEXT, RES_STATUS } from '../../utils/const.js';
+import { NICKNAME_HELPER_TEXT, PASSWORD_HELPER_TEXT, RES_STATUS, BASE_URL } from '../../utils/const.js';
 
 export const renderUserEdit = user => {
   const { profile: profileImg, id: userId, nickname, email } = user;
@@ -44,7 +44,7 @@ export const renderUserEdit = user => {
     e.preventDefault();
     const inputPassword = passwordInputElement.value.trim();
 
-    const res = await fetch(`http://localhost:8000/api/v1/users/${userId}`, {
+    const res = await fetch(`${BASE_URL}/api/v1/users/${userId}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -78,7 +78,7 @@ export const renderUserEdit = user => {
   editSubmitBtnElement.style.backgroundColor = '#D9D9D9';
 
   // 프로필 이미지
-  avatarElement.style.backgroundImage = `url(http://localhost:8000/${profileImg})`;
+  avatarElement.style.backgroundImage = `url(${BASE_URL}/${profileImg})`;
   avatarElement.style.backgroundSize = 'cover';
   avatarElement.style.backgroundRepeat = 'no-repeat';
   avatarElement.style.backgroundPosition = 'center';
@@ -145,7 +145,7 @@ export const renderUserEdit = user => {
     }
 
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/users/${userId}`, {
+      const res = await fetch(`${BASE_URL}/api/v1/users/${userId}`, {
         method: 'PUT',
         body: formData,
       });

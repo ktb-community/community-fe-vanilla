@@ -1,8 +1,6 @@
 const express = require('express');
 const path = require('path');
-
 const app = express();
-const PORT = 3000;
 
 // 경로
 const DIR_PATH = {
@@ -49,6 +47,9 @@ app.use((req, res) => {
 });
 
 // 서버 실행
+const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+  const host = process.env.NODE_ENV === 'development' ? '127.0.0.1' : '61.109.238.66';
+  console.log(`Server is running on http://${host}:${PORT}`);
 });

@@ -1,7 +1,7 @@
 import { EMAIL_HELPER_TEXT, NICKNAME_HELPER_TEXT } from '../../utils/const.js';
-import { RES_STATUS } from '../../utils/const.js';
+import { RES_STATUS, BASE_URL } from '../../utils/const.js';
 
-const REQUEST_URL = 'http://localhost:8000/api/v1';
+const REQUEST_URL = `${BASE_URL}/api/v1`;
 const profileImgInputElement = document.getElementById('file-upload');
 const emailInputElement = document.getElementById('email');
 const passwordInputElement = document.getElementById('password');

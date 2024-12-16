@@ -1,5 +1,6 @@
 import { handleAddComment, handleEditComment, handleDeleteComment, handleDeleteBoard } from '../handler/boardDetailHandler.js';
 import { changeNumberExpression } from '../../utils/utils.js';
+import { BASE_URL } from '../../utils/const.js';
 import API from '../../api/api.js';
 
 export const renderBoardDetail = (boardDetail, userId, isLiked) => {
@@ -45,7 +46,7 @@ export const renderBoardDetail = (boardDetail, userId, isLiked) => {
   }
 
   const avatarDiv = document.getElementById('avatar-div');
-  const profileImgUrl = `http://localhost:8000/${boardDetail.writerProfileImg}`;
+  const profileImgUrl = `${BASE_URL}/${boardDetail.writerProfileImg}`;
   avatarDiv.style.backgroundImage = `url(${profileImgUrl})`;
   avatarDiv.style.backgroundSize = 'cover';
 
@@ -61,7 +62,7 @@ export const renderBoardDetail = (boardDetail, userId, isLiked) => {
 
   const boardImg = document.querySelector('#board-detail-img-container > img');
   if (boardImg && boardDetail.boardImg) {
-    boardImg.src = `http://localhost:8000/${boardDetail.boardImg}`;
+    boardImg.src = `${BASE_URL}/${boardDetail.boardImg}`;
   }
 
   // 좋아요, 조회수, 댓글수
@@ -154,7 +155,7 @@ export const renderBoardComment = (boardComment, userId, boardId) => {
   // 아바타 설정
   const avatar = document.createElement('div');
   avatar.className = 'avatar';
-  avatar.style.backgroundImage = `url(http://localhost:8000/${boardComment.writerProfileImg})`;
+  avatar.style.backgroundImage = `url(${BASE_URL}/${boardComment.writerProfileImg})`;
   avatar.style.backgroundSize = 'cover';
   avatar.style.backgroundRepeat = 'no-repeat';
   avatar.style.backgroundPosition = 'center';

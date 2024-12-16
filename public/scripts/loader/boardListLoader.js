@@ -1,4 +1,5 @@
 import API from '../../api/api.js';
+import { BASE_URL } from '../../utils/const.js';
 
 const renderBoardList = boardList => {
   const boardContainerElement = document.getElementById('board-container');
@@ -31,7 +32,7 @@ const renderBoardList = boardList => {
 
     // 아바타 이미지 추가
     const avatarDiv = boardDiv.querySelector('#avatar-div');
-    avatarDiv.style.backgroundImage = `url(http://localhost:8000/${board.writerProfileImg})`;
+    avatarDiv.style.backgroundImage = `url(${BASE_URL}/${board.writerProfileImg})`;
     avatarDiv.style.backgroundSize = 'cover';
     avatarDiv.style.backgroundPosition = 'center';
 

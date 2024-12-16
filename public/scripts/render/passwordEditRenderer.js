@@ -1,5 +1,5 @@
 import { isValidPassword } from '../../utils/utils.js';
-import { PASSWORD_CHECK_HELPER_TEXT, PASSWORD_HELPER_TEXT, RES_STATUS } from '../../utils/const.js';
+import { PASSWORD_CHECK_HELPER_TEXT, PASSWORD_HELPER_TEXT, RES_STATUS, BASE_URL } from '../../utils/const.js';
 
 export const renderPasswordEdit = user => {
   const { email, id: userId } = user;
@@ -50,7 +50,7 @@ export const renderPasswordEdit = user => {
 
     const password = pwInputElement.value;
 
-    const res = await fetch(`http://localhost:8000/api/v1/users/${userId}`, {
+    const res = await fetch(`${BASE_URL}/api/v1/users/${userId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),

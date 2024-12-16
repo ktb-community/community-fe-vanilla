@@ -1,5 +1,7 @@
+import { BASE_URL } from '../utils/const.js';
+
 const API = {
-  BASE_URL: 'http://localhost:8000/api/v1',
+  BASE_URL: `${BASE_URL}/api/v1`,
 
   async fetch(endpoint, options = {}) {
     const res = await fetch(`${this.BASE_URL}${endpoint}`, options);
@@ -56,7 +58,7 @@ const API = {
   },
 
   incrementBoardViewCount(boardId) {
-    return fetch(`http://localhost:8000/api/v1/boards/${boardId}/views`, {
+    return this.fetch(`/boards/${boardId}/views`, {
       method: 'POST',
       credentials: 'include',
     });
