@@ -4,4 +4,5 @@ COPY package.json yarn.lock ./
 RUN yarn install --production
 COPY ./ ./
 EXPOSE 3000
-CMD ["NODE_ENV=production", "node", "app.js"]
+ENV NODE_ENV=production
+CMD ["node", "app.js"]

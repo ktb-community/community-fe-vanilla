@@ -42,4 +42,4 @@ export const PROFILE_IMG_HELPER_TEXT = Object.freeze({
   EMPTY: '* 프로필 사진을 추가해주세요.',
 });
 
-export const BASE_URL = 'http://61.109.238.66:8000';
+export const BASE_URL = 'http://61.109.238.66:3000';
